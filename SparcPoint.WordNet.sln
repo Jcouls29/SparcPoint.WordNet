@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25029.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparcPoint.WordNet", "SparcPoint.WordNet\SparcPoint.WordNet.csproj", "{63E88C24-6033-4499-A486-B0CA73CE6DE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparcPoint.WordNet.Core", "SparcPoint.WordNet.Core\SparcPoint.WordNet.Core.csproj", "{63E88C24-6033-4499-A486-B0CA73CE6DE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparcPoint.WordNet.Test", "SparcPoint.WordNet.Test\SparcPoint.WordNet.Test.csproj", "{5508805F-C46F-4DBF-A78F-26C4B5676937}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,26 @@ Global
 		{63E88C24-6033-4499-A486-B0CA73CE6DE4}.Release|x64.Build.0 = Release|x64
 		{63E88C24-6033-4499-A486-B0CA73CE6DE4}.Release|x86.ActiveCfg = Release|x86
 		{63E88C24-6033-4499-A486-B0CA73CE6DE4}.Release|x86.Build.0 = Release|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|ARM.Build.0 = Debug|ARM
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|x64.ActiveCfg = Debug|x64
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|x64.Build.0 = Debug|x64
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|x64.Deploy.0 = Debug|x64
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|x86.ActiveCfg = Debug|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|x86.Build.0 = Debug|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Debug|x86.Deploy.0 = Debug|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|Any CPU.ActiveCfg = Release|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|ARM.ActiveCfg = Release|ARM
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|ARM.Build.0 = Release|ARM
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|ARM.Deploy.0 = Release|ARM
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|x64.ActiveCfg = Release|x64
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|x64.Build.0 = Release|x64
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|x64.Deploy.0 = Release|x64
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|x86.ActiveCfg = Release|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|x86.Build.0 = Release|x86
+		{5508805F-C46F-4DBF-A78F-26C4B5676937}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
