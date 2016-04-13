@@ -302,6 +302,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="FileRetriever.cs" />
+    <Compile Include="LexicographerFile.cs" />
+    <Compile Include="ParseHelper.cs" />
+    <Compile Include="PartOfSpeechDataFile.cs" />
+    <Compile Include="SenseIndex.cs" />
+    <Compile Include="SenseKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\SparcPoint.WordNet.rd.xml" />
   </ItemGroup>
