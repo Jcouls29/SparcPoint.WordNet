@@ -11,4 +11,4 @@ have search capabilities along with sentence tokenizers and more.
 Any suggestions are welcom.  I will hopefully be putting documentation externally on the SparcPoint.com site as blog entries.
 justin.coulston@gmail.com
 
-https://www.sparcpoint.com
+http://www.sparcpoint.com
