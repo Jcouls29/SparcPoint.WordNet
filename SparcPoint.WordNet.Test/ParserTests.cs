@@ -249,5 +249,41 @@ namespace SparcPoint.WordNet.Test
 
             Debug.WriteLine($"Verb Exception List: Count = {list.Count()}");
         }
+
+        [TestMethod]
+        public async Task SentenceExampleList_Bankroll()
+        {
+            VerbExampleSentenceList list = await VerbExampleSentenceList.ParseFilesAsync();
+            VerbExampleSentenceEntry entry = list.First(x => x.Key.Lemma == "bankroll");
+
+            string[] sentences = entry.ExampleSentences.ToArray();
+
+            Assert.AreEqual(1, sentences.Count());
+            Assert.AreEqual("Sam and Sue bankroll the movie", sentences[0]);
+        }
+
+        [TestMethod]
+        public async Task SentenceExampleList_Pet()
+        {
+            VerbExampleSentenceList list = await VerbExampleSentenceList.ParseFilesAsync();
+            VerbExampleSentenceEntry entry = list.First(x => x.Key.Lemma == "pet");
+
+            string[] sentences = entry.ExampleSentences.ToArray();
+
+            Assert.AreEqual(0, sentences.Count());
+        }
+
+        [TestMethod]
+        public async Task SentenceExampleList_Embarrass()
+        {
+            VerbExampleSentenceList list = await VerbExampleSentenceList.ParseFilesAsync();
+            VerbExampleSentenceEntry entry = list.First(x => x.Key.Lemma == "embarrass");
+
+            string[] sentences = entry.ExampleSentences.ToArray();
+
+            Assert.AreEqual(2, sentences.Count());
+            Assert.AreEqual("The performance is likely to embarrass Sue", sentences[0]);
+            Assert.AreEqual("Sam cannot embarrass Sue", sentences[1]);
+        }
     }
 }

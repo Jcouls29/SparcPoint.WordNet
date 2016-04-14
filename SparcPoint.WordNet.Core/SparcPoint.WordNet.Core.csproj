@@ -311,6 +311,7 @@
     <Compile Include="SenseIndex.cs" />
     <Compile Include="SenseKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerbExampleSentenceList.cs" />
     <EmbeddedResource Include="Properties\SparcPoint.WordNet.rd.xml" />
   </ItemGroup>
   <ItemGroup />

@@ -14,6 +14,16 @@ namespace SparcPoint.WordNet
             return await getFileByUri("ms-appx:///SparcPoint.WordNet.Core/WordNet/dict/index.sense");
         }
 
+        public static async Task<StorageFile> GetExampleSentencesFile()
+        {
+            return await getFileByUri("ms-appx:///SparcPoint.WordNet.Core/WordNet/dict/sents.vrb");
+        }
+
+        public static async Task<StorageFile> GetExampleSentencesIndexFile()
+        {
+            return await getFileByUri("ms-appx:///SparcPoint.WordNet.Core/WordNet/dict/sentidx.vrb");
+        }
+
         public static async Task<StorageFile> GetSyntacticCategoryDataFile(Constants.PartOfSpeech synSetType)
         {
             string filename = "";
