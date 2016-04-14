@@ -14,22 +14,22 @@ namespace SparcPoint.WordNet
             return await getFileByUri("ms-appx:///SparcPoint.WordNet.Core/WordNet/dict/index.sense");
         }
 
-        public static async Task<StorageFile> GetSyntacticCategoryDataFile(Constants.SynSetType synSetType)
+        public static async Task<StorageFile> GetSyntacticCategoryDataFile(Constants.PartOfSpeech synSetType)
         {
             string filename = "";
             switch (synSetType)
             {
-                case Constants.SynSetType.NOUN:
+                case Constants.PartOfSpeech.NOUN:
                     filename = "data.noun";
                     break;
-                case Constants.SynSetType.VERB:
+                case Constants.PartOfSpeech.VERB:
                     filename = "data.verb";
                     break;
-                case Constants.SynSetType.ADJECTIVE:
-                case Constants.SynSetType.ADJECTIVE_SATELLITE:
+                case Constants.PartOfSpeech.ADJECTIVE:
+                case Constants.PartOfSpeech.ADJECTIVE_SATELLITE:
                     filename = "data.adj";
                     break;
-                case Constants.SynSetType.ADVERB:
+                case Constants.PartOfSpeech.ADVERB:
                     filename = "data.adv";
                     break;
                 default:
@@ -39,23 +39,48 @@ namespace SparcPoint.WordNet
             return await getFileByUri($"ms-appx:///SparcPoint.WordNet.Core/WordNet/dict/{filename}");
         }
 
-        public static async Task<StorageFile> GetSyntacticCategoryIndexFile(Constants.SynSetType synSetType)
+        public static async Task<StorageFile> GetSyntacticCategoryIndexFile(Constants.PartOfSpeech synSetType)
         {
             string filename = "";
             switch (synSetType)
             {
-                case Constants.SynSetType.NOUN:
+                case Constants.PartOfSpeech.NOUN:
                     filename = "index.noun";
                     break;
-                case Constants.SynSetType.VERB:
+                case Constants.PartOfSpeech.VERB:
                     filename = "index.verb";
                     break;
-                case Constants.SynSetType.ADJECTIVE:
-                case Constants.SynSetType.ADJECTIVE_SATELLITE:
+                case Constants.PartOfSpeech.ADJECTIVE:
+                case Constants.PartOfSpeech.ADJECTIVE_SATELLITE:
                     filename = "index.adj";
                     break;
-                case Constants.SynSetType.ADVERB:
+                case Constants.PartOfSpeech.ADVERB:
                     filename = "index.adv";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(synSetType));
+            }
+
+            return await getFileByUri($"ms-appx:///SparcPoint.WordNet.Core/WordNet/dict/{filename}");
+        }
+
+        public static async Task<StorageFile> GetSyntacticCategoryExceptionFile(Constants.PartOfSpeech synSetType)
+        {
+            string filename = "";
+            switch (synSetType)
+            {
+                case Constants.PartOfSpeech.NOUN:
+                    filename = "noun.exc";
+                    break;
+                case Constants.PartOfSpeech.VERB:
+                    filename = "verb.exc";
+                    break;
+                case Constants.PartOfSpeech.ADJECTIVE:
+                case Constants.PartOfSpeech.ADJECTIVE_SATELLITE:
+                    filename = "adj.exc";
+                    break;
+                case Constants.PartOfSpeech.ADVERB:
+                    filename = "adv.exc";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(synSetType));

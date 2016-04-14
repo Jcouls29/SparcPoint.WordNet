@@ -8,7 +8,7 @@ namespace SparcPoint.WordNet
 {
     public static class Constants
     {
-        public enum SynSetType: byte
+        public enum PartOfSpeech: byte
         {
             UNKNOWN = 0,
             NOUN = 1,
@@ -18,13 +18,13 @@ namespace SparcPoint.WordNet
             ADJECTIVE_SATELLITE = 5
         }
 
-        public static Dictionary<char, SynSetType> SynSetTypeChar = new Dictionary<char, SynSetType>()
+        public static Dictionary<char, PartOfSpeech> SynSetTypeChar = new Dictionary<char, PartOfSpeech>()
         {
-            {'n', SynSetType.NOUN },
-            {'v', SynSetType.VERB },
-            {'a', SynSetType.ADJECTIVE },
-            {'s', SynSetType.ADJECTIVE_SATELLITE },
-            {'r', SynSetType.ADVERB }
+            {'n', PartOfSpeech.NOUN },
+            {'v', PartOfSpeech.VERB },
+            {'a', PartOfSpeech.ADJECTIVE },
+            {'s', PartOfSpeech.ADJECTIVE_SATELLITE },
+            {'r', PartOfSpeech.ADVERB }
         };
 
         public enum SyntacticCategory: byte

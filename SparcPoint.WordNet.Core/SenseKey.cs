@@ -16,7 +16,7 @@ namespace SparcPoint.WordNet
     {
         public string FullKey { get; set; }
         public string Lemma { get; set; }
-        public Constants.SynSetType PartOfSpeech { get; set; }
+        public Constants.PartOfSpeech PartOfSpeech { get; set; }
         public Constants.LexicographerFiles LexFile { get; set; }
         public byte LexId { get; set; }
         public string HeadWord { get; set; }
@@ -34,7 +34,7 @@ namespace SparcPoint.WordNet
 
             // Synset Type            
             nextField = ParseHelper.GetNextField(key, ref lastIndex, ':');
-            rtn.PartOfSpeech = (Constants.SynSetType) Enum.Parse(typeof(Constants.SynSetType), nextField);
+            rtn.PartOfSpeech = (Constants.PartOfSpeech) Enum.Parse(typeof(Constants.PartOfSpeech), nextField);
 
             // Lexicographical File
             nextField = ParseHelper.GetNextField(key, ref lastIndex, ':');

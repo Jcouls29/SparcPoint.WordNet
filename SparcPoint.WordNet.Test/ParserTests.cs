@@ -19,7 +19,7 @@ namespace SparcPoint.WordNet.Test
             SenseKey senseKey = SenseKey.Parse(key);
 
             Assert.AreEqual("175th", senseKey.Lemma);
-            Assert.AreEqual(Constants.SynSetType.ADJECTIVE_SATELLITE, senseKey.PartOfSpeech);
+            Assert.AreEqual(Constants.PartOfSpeech.ADJECTIVE_SATELLITE, senseKey.PartOfSpeech);
             Assert.AreEqual(Constants.LexicographerFiles.ADJ_ALL, senseKey.LexFile);
             Assert.AreEqual("ordinal", senseKey.HeadWord);
             Assert.AreEqual((byte)0, senseKey.HeadId);
@@ -32,7 +32,7 @@ namespace SparcPoint.WordNet.Test
             SenseKey senseKey = SenseKey.Parse(key);
 
             Assert.AreEqual("abacus", senseKey.Lemma);
-            Assert.AreEqual(Constants.SynSetType.NOUN, senseKey.PartOfSpeech);
+            Assert.AreEqual(Constants.PartOfSpeech.NOUN, senseKey.PartOfSpeech);
             Assert.AreEqual(Constants.LexicographerFiles.NOUN_ARTIFACT, senseKey.LexFile);
             Assert.AreEqual(string.Empty, senseKey.HeadWord);
             Assert.AreEqual((byte)0, senseKey.HeadId);
@@ -96,7 +96,7 @@ namespace SparcPoint.WordNet.Test
         [TestMethod]
         public async Task GetDataFile_Noun()
         {
-            StorageFile file = await FileRetriever.GetSyntacticCategoryDataFile(Constants.SynSetType.NOUN);
+            StorageFile file = await FileRetriever.GetSyntacticCategoryDataFile(Constants.PartOfSpeech.NOUN);
         }
 
         [TestMethod]
@@ -106,14 +106,14 @@ namespace SparcPoint.WordNet.Test
             SenseIndex index = await SenseIndex.ParseFileAsync();
             IEnumerable<SenseIndexEntry> ironEntries = index.SearchDictionary["iron"];
 
-            SenseIndexEntry entry = ironEntries.Where(x => x.Key.PartOfSpeech == Constants.SynSetType.VERB).First();
+            SenseIndexEntry entry = ironEntries.Where(x => x.Key.PartOfSpeech == Constants.PartOfSpeech.VERB).First();
             PartOfSpeechDataFileEntry posEntry = await PartOfSpeechDataFile.GetEntryAsync(entry.Key.PartOfSpeech, entry.Offset);
 
             //// Basic Info ////
             // 01393487 35 v 03 iron 0 iron_out 0 press 3 006 
             Assert.AreEqual(1393487, posEntry.Offset);
             Assert.AreEqual(Constants.LexicographerFiles.VERB_CONTACT, posEntry.LexFile);
-            Assert.AreEqual(Constants.SynSetType.VERB, posEntry.PartOfSpeech);
+            Assert.AreEqual(Constants.PartOfSpeech.VERB, posEntry.PartOfSpeech);
             Assert.AreEqual(3, posEntry.Words.Count());
             Assert.IsTrue(posEntry.Words.Any(x => x.Lemma == "iron" && x.LexId == 0));
             Assert.IsTrue(posEntry.Words.Any(x => x.Lemma == "iron out" && x.LexId == 0));
@@ -128,22 +128,22 @@ namespace SparcPoint.WordNet.Test
             // ~ 01393140 v 0000 
             Assert.AreEqual(6, posEntry.Pointers.Count());
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.HYPERNYM 
-                && x.DataFileOffset == 01393270 && x.PartOfSpeech == Constants.SynSetType.VERB 
+                && x.DataFileOffset == 01393270 && x.PartOfSpeech == Constants.PartOfSpeech.VERB 
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.ENTAILMENT 
-                && x.DataFileOffset == 00371917 && x.PartOfSpeech == Constants.SynSetType.VERB 
+                && x.DataFileOffset == 00371917 && x.PartOfSpeech == Constants.PartOfSpeech.VERB 
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM 
-                && x.DataFileOffset == 03589998 && x.PartOfSpeech == Constants.SynSetType.NOUN 
+                && x.DataFileOffset == 03589998 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN 
                 && x.SourceWordNumber == 01 && x.TargetWordNumber == 01));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM 
-                && x.DataFileOffset == 03591044 && x.PartOfSpeech == Constants.SynSetType.NOUN 
+                && x.DataFileOffset == 03591044 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN 
                 && x.SourceWordNumber == 01 && x.TargetWordNumber == 01));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM 
-                && x.DataFileOffset == 00582127 && x.PartOfSpeech == Constants.SynSetType.NOUN 
+                && x.DataFileOffset == 00582127 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN 
                 && x.SourceWordNumber == 01 && x.TargetWordNumber == 01));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.HYPONYM 
-                && x.DataFileOffset == 01393140 && x.PartOfSpeech == Constants.SynSetType.VERB 
+                && x.DataFileOffset == 01393140 && x.PartOfSpeech == Constants.PartOfSpeech.VERB 
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
 
             //// Frames ////
@@ -164,14 +164,14 @@ namespace SparcPoint.WordNet.Test
             SenseIndex index = await SenseIndex.ParseFileAsync();
             IEnumerable<SenseIndexEntry> ironEntries = index.SearchDictionary["iron"];
 
-            SenseIndexEntry entry = ironEntries.Where(x => x.Key.PartOfSpeech == Constants.SynSetType.NOUN && x.Offset == 03589998).First();
+            SenseIndexEntry entry = ironEntries.Where(x => x.Key.PartOfSpeech == Constants.PartOfSpeech.NOUN && x.Offset == 03589998).First();
             PartOfSpeechDataFileEntry posEntry = await PartOfSpeechDataFile.GetEntryAsync(entry.Key.PartOfSpeech, entry.Offset);
 
             //// Basic Info ////
             // 03589998 06 n 02 iron 0 smoothing_iron 0
             Assert.AreEqual(03589998, posEntry.Offset);
             Assert.AreEqual(Constants.LexicographerFiles.NOUN_ARTIFACT, posEntry.LexFile);
-            Assert.AreEqual(Constants.SynSetType.NOUN, posEntry.PartOfSpeech);
+            Assert.AreEqual(Constants.PartOfSpeech.NOUN, posEntry.PartOfSpeech);
             Assert.AreEqual(2, posEntry.Words.Count());
             Assert.IsTrue(posEntry.Words.Any(x => x.Lemma == "iron" && x.LexId == 0));
             Assert.IsTrue(posEntry.Words.Any(x => x.Lemma == "smoothing iron" && x.LexId == 0));
@@ -185,22 +185,22 @@ namespace SparcPoint.WordNet.Test
             // ~ 04482866 n 0000
             Assert.AreEqual(6, posEntry.Pointers.Count());
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.HYPERNYM
-                && x.DataFileOffset == 03533443 && x.PartOfSpeech == Constants.SynSetType.NOUN
+                && x.DataFileOffset == 03533443 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM
-                && x.DataFileOffset == 01393487 && x.PartOfSpeech == Constants.SynSetType.VERB
+                && x.DataFileOffset == 01393487 && x.PartOfSpeech == Constants.PartOfSpeech.VERB
                 && x.SourceWordNumber == 01 && x.TargetWordNumber == 01));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.HYPONYM
-                && x.DataFileOffset == 03366040 && x.PartOfSpeech == Constants.SynSetType.NOUN
+                && x.DataFileOffset == 03366040 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.HYPONYM
-                && x.DataFileOffset == 03448699 && x.PartOfSpeech == Constants.SynSetType.NOUN
+                && x.DataFileOffset == 03448699 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.HYPONYM
-                && x.DataFileOffset == 04316971 && x.PartOfSpeech == Constants.SynSetType.NOUN
+                && x.DataFileOffset == 04316971 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
             Assert.IsTrue(posEntry.Pointers.Any(x => x.PointerType == Constants.PointSymbol.HYPONYM
-                && x.DataFileOffset == 04482866 && x.PartOfSpeech == Constants.SynSetType.NOUN
+                && x.DataFileOffset == 04482866 && x.PartOfSpeech == Constants.PartOfSpeech.NOUN
                 && x.SourceWordNumber == 00 && x.TargetWordNumber == 00));
 
             //// Frames ////
@@ -220,7 +220,7 @@ namespace SparcPoint.WordNet.Test
             SenseIndex index = await SenseIndex.ParseFileAsync();
             IEnumerable<SenseIndexEntry> ironEntries = index.SearchDictionary["iron"];
 
-            SenseIndexEntry entry = ironEntries.Where(x => x.Key.PartOfSpeech == Constants.SynSetType.NOUN && x.Offset == 03589998).First();
+            SenseIndexEntry entry = ironEntries.Where(x => x.Key.PartOfSpeech == Constants.PartOfSpeech.NOUN && x.Offset == 03589998).First();
 
             Stopwatch sw = Stopwatch.StartNew();
             for (int i = 1; i <= GET_COUNT; i++)
@@ -232,5 +232,22 @@ namespace SparcPoint.WordNet.Test
             Debug.WriteLine($"Get Data Entry Performance (per {GET_COUNT}): Time Elapsed = {sw.Elapsed.ToString()}");
         }
 
+        [TestMethod]
+        public async Task GetExceptionList_Noun()
+        {
+            ExceptionList list = await ExceptionList.ParseFileAsync(Constants.PartOfSpeech.NOUN);
+            Assert.AreEqual(2054, list.Count());
+
+            Debug.WriteLine($"Noun Exception List: Count = {list.Count()}");
+        }
+
+        [TestMethod]
+        public async Task GetExceptionList_Verb()
+        {
+            ExceptionList list = await ExceptionList.ParseFileAsync(Constants.PartOfSpeech.VERB);
+            Assert.AreEqual(2401, list.Count());
+
+            Debug.WriteLine($"Verb Exception List: Count = {list.Count()}");
+        }
     }
 }

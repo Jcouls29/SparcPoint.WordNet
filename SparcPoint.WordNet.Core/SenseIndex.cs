@@ -62,7 +62,7 @@ namespace SparcPoint.WordNet
         public SenseKey Key { get; set; }
 
         /// <summary>
-        /// Byte Offset where the Sense is found in the data file
+        /// Byte Offset where the Sense is found in the data file (data.noun, data.verb, etc)
         /// </summary>
         public int Offset { get; set; }
 

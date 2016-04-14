@@ -25,7 +25,7 @@ namespace SparcPoint.WordNet
             }
         }
 
-        public static async Task<PartOfSpeechDataFileEntry> GetEntryAsync(Constants.SynSetType synSetType, int byteOffset)
+        public static async Task<PartOfSpeechDataFileEntry> GetEntryAsync(Constants.PartOfSpeech synSetType, int byteOffset)
         {
             StorageFile file = await FileRetriever.GetSyntacticCategoryDataFile(synSetType);
             return await GetEntryAsync(file, byteOffset);
@@ -34,12 +34,40 @@ namespace SparcPoint.WordNet
 
     public struct PartOfSpeechDataFileEntry
     {
+        /// <summary>
+        /// Byte Offset within the Data File
+        /// </summary>
         public int Offset { get; set; }
+
+        /// <summary>
+        /// Lexicographer File where Synset is located
+        /// </summary>
         public Constants.LexicographerFiles LexFile { get; set; }
-        public Constants.SynSetType PartOfSpeech { get; set; }
+
+        /// <summary>
+        /// Part of Speech
+        /// </summary>
+        public Constants.PartOfSpeech PartOfSpeech { get; set; }
+
+        /// <summary>
+        /// Collection of Words in Entry
+        /// </summary>
         public IEnumerable<DataWordLexIdPair> Words { get; set; }
+
+        /// <summary>
+        /// Collection of pointers from this synset to others 
+        /// within corresponding data files (data.noun, data.verb, etc)
+        /// </summary>
         public IEnumerable<DataPointer> Pointers { get; set; }
+
+        /// <summary>
+        /// Collection of Verb Frames (Sentence Structures) [Verbs Only]
+        /// </summary>
         public IEnumerable<FramePair> Frames { get; set; }
+
+        /// <summary>
+        /// Example Sentences / Definitions of SynSet
+        /// </summary>
         public string Gloss { get; set; }
 
         public static PartOfSpeechDataFileEntry Parse(string line)
@@ -116,7 +144,7 @@ namespace SparcPoint.WordNet
 
             // Frames
             List<FramePair> frames = new List<FramePair>();
-            if (rtn.PartOfSpeech == Constants.SynSetType.VERB)
+            if (rtn.PartOfSpeech == Constants.PartOfSpeech.VERB)
             {
                 if (ParseHelper.NextSeparatorExists(line, lastIndex, " + "))
                 {
@@ -173,22 +201,58 @@ namespace SparcPoint.WordNet
 
     public struct DataWordLexIdPair
     {
+        /// <summary>
+        /// Word / Lemma with Spaces instead of _
+        /// </summary>
         public string Lemma { get; set; }
+
+        /// <summary>
+        /// Lexical Id of Word
+        /// </summary>
         public byte LexId { get; set; }
     }
 
     public struct FramePair
     {
+        /// <summary>
+        /// Frame Number of the Verb Sentence
+        /// </summary>
+        /// <remarks>
+        /// Constants.VerbFrameFormats can be used to get sentence example format
+        /// </remarks>
         public byte FrameNumber { get; set; }
+
+        /// <summary>
+        /// Word Number in the SynSet frame applies to
+        /// </summary>
         public byte WordNumber { get; set; }
     }
 
     public struct DataPointer
     {
+        /// <summary>
+        /// Pointer Type (Relationship)
+        /// </summary>
         public Constants.PointSymbol PointerType { get; set; }
+
+        /// <summary>
+        /// Offset within the corresponding data file (data.noun, data.verb, etc)
+        /// </summary>
         public int DataFileOffset { get; set; }
-        public Constants.SynSetType PartOfSpeech { get; set; }
+
+        /// <summary>
+        /// Part of Speech of the pointer reference
+        /// </summary>
+        public Constants.PartOfSpeech PartOfSpeech { get; set; }
+
+        /// <summary>
+        /// Word Number in the current SynSet
+        /// </summary>
         public byte SourceWordNumber { get; set; }
+
+        /// <summary>
+        /// Word Number in the Target (Pointer) SynSet
+        /// </summary>
         public byte TargetWordNumber { get; set; }
     }
 }

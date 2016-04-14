@@ -303,6 +303,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="ExceptionList.cs" />
     <Compile Include="FileRetriever.cs" />
     <Compile Include="LexicographerFile.cs" />
     <Compile Include="ParseHelper.cs" />
