@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparcPoint.WordNet;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,10 +26,41 @@ namespace SparcPoint.WordNet
             }
         }
 
+        public static async Task<IEnumerable<PartOfSpeechDataFileEntry>> GetEntriesAsync(StorageFile file, IEnumerable<int> byteOffsets)
+        {
+            using (IInputStream stream = await file.OpenSequentialReadAsync())
+            using (Stream classicStream = stream.AsStreamForRead())
+            //using (StreamReader reader = new StreamReader(classicStream))
+            {
+                List<PartOfSpeechDataFileEntry> list = new List<PartOfSpeechDataFileEntry>();
+
+                foreach(int nextOffset in byteOffsets.OrderBy(x => x))
+                {
+                    //classicStream.Position = (long)nextOffset;
+                    long deltaOffset = nextOffset - (classicStream.Position - 1);
+                    classicStream.Seek(deltaOffset, SeekOrigin.Current);
+
+                    string line = await classicStream.ReadLineAsync((byte)0x0A);
+                    if (string.IsNullOrWhiteSpace(line)) throw new InvalidOperationException("Read Line is null.");
+
+                    PartOfSpeechDataFileEntry entry = PartOfSpeechDataFileEntry.Parse(line);
+                    list.Add(entry);
+                }
+
+                return list;
+            }
+        }
+
         public static async Task<PartOfSpeechDataFileEntry> GetEntryAsync(Constants.PartOfSpeech synSetType, int byteOffset)
         {
             StorageFile file = await FileRetriever.GetSyntacticCategoryDataFile(synSetType);
             return await GetEntryAsync(file, byteOffset);
+        }
+
+        public static async Task<IEnumerable<PartOfSpeechDataFileEntry>> GetEntriesAsync(Constants.PartOfSpeech synSetType, IEnumerable<int> byteOffsets)
+        {
+            StorageFile file = await FileRetriever.GetSyntacticCategoryDataFile(synSetType);
+            return await GetEntriesAsync(file, byteOffsets);
         }
     }
 

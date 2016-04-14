@@ -233,6 +233,59 @@ namespace SparcPoint.WordNet.Test
         }
 
         [TestMethod]
+        public async Task GetDataEntries_Iron()
+        {
+            SenseIndex index = await SenseIndex.ParseFileAsync();
+            IEnumerable<SenseIndexEntry> ironEntries = index.SearchDictionary["iron"];
+            IEnumerable<PartOfSpeechDataFileEntry> posEntries = await PartOfSpeechDataFile.GetEntriesAsync(Constants.PartOfSpeech.NOUN, 
+                ironEntries.Where(x => x.Key.PartOfSpeech == Constants.PartOfSpeech.NOUN).
+                Select(x => x.Offset).ToArray());
+
+            Assert.AreEqual(4, posEntries.Count());
+        }
+
+        [TestMethod]
+        public async Task GetDataEntries_Sparse()
+        {
+            // 00005930 03 n 01 dwarf 0 001 @ 00004475 n 0000 | a plant or animal that is atypically small 
+            // 02945804 06 n 01 camcorder 0 001 @ 04412132 n 0000 | a portable television camera and videocassette recorder 
+            // 08702414 15 n 01 yard 1 001 @ 08691133 n 0000 | a tract of land where logs are accumulated 
+            // 14379048 26 n 01 scleritis 0 001 @ 14359944 n 0000 | inflammation of the sclera
+            // 15325294 28 n 05 9/11 0 9-11 0 September_11 0 Sept._11 0 Sep_11 0 003 #p 15237535 n 0000 @i 01249244 n 0000 ;c 00761047 n 0000 | the day in 2001 when Arab suicide bombers hijacked United States airliners and used them as bombs  
+
+            IEnumerable<int> offsets = new int[] { 00005930, 02945804, 08702414, 14379048, 15325294 };
+            PartOfSpeechDataFileEntry[] posEntries = (await PartOfSpeechDataFile.GetEntriesAsync(Constants.PartOfSpeech.NOUN, offsets)).ToArray();
+
+            Assert.AreEqual(5, posEntries.Count());
+            Assert.AreEqual("dwarf", posEntries[0].Words.First().Lemma);
+            Assert.AreEqual("camcorder", posEntries[1].Words.First().Lemma);
+            Assert.AreEqual("yard", posEntries[2].Words.First().Lemma);
+            Assert.AreEqual("scleritis", posEntries[3].Words.First().Lemma);
+            Assert.AreEqual("9/11", posEntries[4].Words.First().Lemma);
+        }
+
+        [TestMethod]
+        public async Task GetDataEntries_SparsePerformance()
+        {
+            // 00005930 03 n 01 dwarf 0 001 @ 00004475 n 0000 | a plant or animal that is atypically small 
+            // 02945804 06 n 01 camcorder 0 001 @ 04412132 n 0000 | a portable television camera and videocassette recorder 
+            // 08702414 15 n 01 yard 1 001 @ 08691133 n 0000 | a tract of land where logs are accumulated 
+            // 14379048 26 n 01 scleritis 0 001 @ 14359944 n 0000 | inflammation of the sclera
+            // 15325294 28 n 05 9/11 0 9-11 0 September_11 0 Sept._11 0 Sep_11 0 003 #p 15237535 n 0000 @i 01249244 n 0000 ;c 00761047 n 0000 | the day in 2001 when Arab suicide bombers hijacked United States airliners and used them as bombs  
+
+            IEnumerable<int> offsets = new int[] { 00005930, 02945804, 08702414, 14379048, 15325294 };
+
+            Stopwatch sw = Stopwatch.StartNew();
+            for (int i = 1; i <= 1000; i++)
+            {
+                PartOfSpeechDataFileEntry[] posEntries = (await PartOfSpeechDataFile.GetEntriesAsync(Constants.PartOfSpeech.NOUN, offsets)).ToArray();
+            }
+            sw.Stop();
+
+            Debug.WriteLine($"Get Multiple Data Entries Noun Sparse Performance (per 1000): Elapsed = {sw.Elapsed.ToString()}");
+        }
+
+        [TestMethod]
         public async Task GetExceptionList_Noun()
         {
             ExceptionList list = await ExceptionList.ParseFileAsync(Constants.PartOfSpeech.NOUN);
