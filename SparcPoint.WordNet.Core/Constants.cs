@@ -97,7 +97,7 @@ namespace SparcPoint.WordNet
             {"&", PointSymbol.SIMILAR_TO }
         };
 
-        public static Dictionary<int, string> VerbFrameFormats = new Dictionary<int, string>()
+        public static Dictionary<byte, string> VerbFrameFormats = new Dictionary<byte, string>()
         {
             {1, "Something {0}s" },
             {2, "Somebody {0}s" },
@@ -193,6 +193,12 @@ namespace SparcPoint.WordNet
             VERB_STATIVE = 42,
             VERB_WEATHER = 43,
             ADJ_PPL = 44
+        }
+
+        public static LexicographerFiles ParseFile(string value)
+        {
+            string changedValue = value.Replace('.', '_').ToUpper().Trim();
+            return (LexicographerFiles)Enum.Parse(typeof(LexicographerFiles), changedValue);
         }
     }
 }

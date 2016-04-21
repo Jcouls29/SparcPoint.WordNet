@@ -88,7 +88,6 @@ namespace SparcPoint.WordNet.Test
             }
         }
 
-
         [TestMethod]
         public async Task ReadWholeFileCompare_Performance()
         {

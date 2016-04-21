@@ -338,5 +338,116 @@ namespace SparcPoint.WordNet.Test
             Assert.AreEqual("The performance is likely to embarrass Sue", sentences[0]);
             Assert.AreEqual("Sam cannot embarrass Sue", sentences[1]);
         }
+
+        [TestMethod]
+        public async Task SynSetEntry_Parse_dripstone()
+        {
+            // { dripstone, hoodmold, hoodmould, drip,@ (a protective drip that is made of stone) }
+            string line = "{ dripstone, hoodmold, hoodmould, drip,@ (a protective drip that is made of stone) }";
+            SynsetEntry entry = SynsetEntry.Parse(line);
+
+            Word[] words = entry.Words.ToArray();
+            Assert.AreEqual(3, entry.Words.Count());
+            Assert.AreEqual("dripstone", words[0].Lemma);
+            Assert.AreEqual(0, words[0].LexId);
+            Assert.IsNull(words[0].Pointers);
+            Assert.IsNull(words[0].Frames);
+
+            Assert.AreEqual("hoodmold", words[1].Lemma);
+            Assert.AreEqual(0, words[1].LexId);
+            Assert.IsNull(words[1].Pointers);
+            Assert.IsNull(words[1].Frames);
+
+            Assert.AreEqual("hoodmould", words[2].Lemma);
+            Assert.AreEqual(0, words[2].LexId);
+            Assert.IsNull(words[2].Pointers);
+            Assert.IsNull(words[2].Frames);
+
+            Pointer[] pointers = entry.Pointers.ToArray();
+            Assert.AreEqual(1, pointers.Count());
+            Assert.AreEqual("drip", pointers[0].Lemma);
+            Assert.AreEqual(Constants.PointSymbol.HYPERNYM, pointers[0].PointerSymbol);
+            Assert.AreEqual(0, pointers[0].LexId);
+
+            Assert.AreEqual("a protective drip that is made of stone", entry.Gloss);
+        }
+
+        [TestMethod]
+        public async Task SynSetEntry_Parse_driver()
+        {
+            // { [ driver, verb.contact:drive3,+ ] number_one_wood, wood2,@ (a golf club (a wood) with a near vertical face that is used for hitting long shots from the tee) }
+            string line = "{ [ driver, verb.contact:drive3,+ ] number_one_wood, wood2,@ (a golf club (a wood) with a near vertical face that is used for hitting long shots from the tee) }";
+            SynsetEntry entry = SynsetEntry.Parse(line);
+
+            Word[] words = entry.Words.ToArray();
+            Assert.AreEqual(2, entry.Words.Count());
+
+            Assert.AreEqual("driver", words[0].Lemma);
+            Assert.AreEqual(1, words[0].Pointers.Count());
+            Pointer[] wordPointers = words[0].Pointers.ToArray();
+            Assert.AreEqual(Constants.LexicographerFiles.VERB_CONTACT, wordPointers[0].LexFile);
+            Assert.AreEqual("drive", wordPointers[0].Lemma);
+            Assert.AreEqual(3, wordPointers[0].LexId);
+            Assert.AreEqual(Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM, wordPointers[0].PointerSymbol);
+
+            Assert.AreEqual("number one wood", words[1].Lemma);
+            Assert.AreEqual(0, words[1].LexId);
+            Assert.IsNull(words[1].Pointers);
+            Assert.IsNull(words[1].Frames);
+
+            Pointer[] pointers = entry.Pointers.ToArray();
+            Assert.AreEqual(1, pointers.Count());
+            Assert.AreEqual("wood", pointers[0].Lemma);
+            Assert.AreEqual(2, pointers[0].LexId);
+            Assert.AreEqual(Constants.PointSymbol.HYPERNYM, pointers[0].PointerSymbol);
+
+            Assert.AreEqual("a golf club (a wood) with a near vertical face that is used for hitting long shots from the tee", entry.Gloss);
+        }
+
+        // { [ crape2, noun.artifact:crape,+ ] [ crepe, noun.artifact:crepe,+ noun.substance:crepe2,+ ] cover,@ frames: 8,11 (cover or drape with crape; "crape the mirror") }
+        [TestMethod]
+        public async Task SynSetEntry_Parse_crape2()
+        {
+            // { [ crape2, noun.artifact:crape,+ ] [ crepe, noun.artifact:crepe,+ noun.substance:crepe2,+ ] cover,@ frames: 8,11 (cover or drape with crape; "crape the mirror") }
+            string line = "{ [ crape2, noun.artifact:crape,+ ] [ crepe, noun.artifact:crepe,+ noun.substance:crepe2,+ ] cover,@ frames: 8,11 (cover or drape with crape; \"crape the mirror\") }";
+            SynsetEntry entry = SynsetEntry.Parse(line);
+
+            Word[] words = entry.Words.ToArray();
+            Assert.AreEqual(2, words.Count());
+
+            Assert.AreEqual("crape", words[0].Lemma);
+            Assert.AreEqual(2, words[0].LexId);
+            Pointer[] wordPointers = words[0].Pointers.ToArray();
+            Assert.AreEqual("crape", wordPointers[0].Lemma);
+            Assert.AreEqual(Constants.LexicographerFiles.NOUN_ARTIFACT, wordPointers[0].LexFile);
+            Assert.AreEqual(0, wordPointers[0].LexId);
+            Assert.AreEqual(Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM, wordPointers[0].PointerSymbol);
+
+            Assert.AreEqual("crepe", words[1].Lemma);
+            Assert.AreEqual(0, words[1].LexId);
+            wordPointers = words[1].Pointers.ToArray();
+            Assert.AreEqual("crepe", wordPointers[0].Lemma);
+            Assert.AreEqual(Constants.LexicographerFiles.NOUN_ARTIFACT, wordPointers[0].LexFile);
+            Assert.AreEqual(0, wordPointers[0].LexId);
+            Assert.AreEqual(Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM, wordPointers[0].PointerSymbol);
+
+            Assert.AreEqual("crepe", wordPointers[1].Lemma);
+            Assert.AreEqual(Constants.LexicographerFiles.NOUN_SUBSTANCE, wordPointers[1].LexFile);
+            Assert.AreEqual(2, wordPointers[1].LexId);
+            Assert.AreEqual(Constants.PointSymbol.DERIVATIONALLY_RELATED_FORM, wordPointers[1].PointerSymbol);
+
+            byte[] frames = entry.Frames.ToArray();
+            Assert.AreEqual(2, frames.Count());
+            Assert.AreEqual(8, frames[0]);
+            Assert.AreEqual(11, frames[1]);
+
+            Pointer[] pointers = entry.Pointers.ToArray();
+            Assert.AreEqual(1, pointers.Count());
+            Assert.AreEqual("cover", pointers[0].Lemma);
+            Assert.AreEqual(0, pointers[0].LexId);
+            Assert.AreEqual(Constants.PointSymbol.HYPERNYM, pointers[0].PointerSymbol);
+
+            Assert.AreEqual("cover or drape with crape; \"crape the mirror\"", entry.Gloss);
+        }
     }
 }
