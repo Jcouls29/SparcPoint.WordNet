@@ -583,7 +583,7 @@
 { [ kayak, noun.artifact:kayak,+ ] boat,@ noun.act:sport,;c frames: 2 (travel in a small canoe; "we kayaked down the river") }
 { [ paddle, noun.artifact:paddle,+ noun.person:paddler,+ ] boat,@ noun.act:sport,;c frames: 2,8 (propel with a paddle; "paddle your own canoe") }
 { [surfboard, noun.artifact:surfboard,+] [ surf, noun.event:surf,+ noun.person:surfer,+ noun.act:surfing,+ ] glide,@ noun.act:sport,;c frames: 2,22 (ride the waves of the sea with a surfboard; "Californians love to surf") }
-{ body-surf,glide,@ frames: 2 (ride the crest of a wave without a surfboard)}
+{ body-surf, glide,@ frames: 2 (ride the crest of a wave without a surfboard)}
 { windsurf, surf,@ noun.act:sport,;c frames: 2,22 (ride standing on a surfboard with an attached sail, on water; "You cannot windsurf when the air is completely still") }
 { [ balloon, noun.person:balloonist,+ noun.artifact:balloon,+ ] fly1,@ frames: 2,1 (ride in a hot-air balloon; "He tried to balloon around the earth but storms forced him to land in China") }
 { taxi1, travel,@ frames: 1,2,4,22 (travel slowly; "The plane taxied down the runway") }

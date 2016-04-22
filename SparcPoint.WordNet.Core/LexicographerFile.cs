@@ -13,6 +13,40 @@ namespace SparcPoint.WordNet
 {
     public class LexicographerFile
     {
+        public static async Task<IEnumerable<SynsetEntry>> GetAllEntries(StorageFile file)
+        {
+            List<SynsetEntry> rtn = new List<SynsetEntry>();
+            int currentLineNumber = 0;
+            string currentLine = null;
+            string fileName = file.Name;
+
+            try
+            {
+                using (IInputStream stream = await file.OpenSequentialReadAsync())
+                using (Stream classicStream = stream.AsStreamForRead())
+                using (StreamReader reader = new StreamReader(classicStream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string line = await reader.ReadLineAsync();
+                        currentLineNumber++;
+                        currentLine = line;
+
+                        if (string.IsNullOrWhiteSpace(line)) continue;
+                        if (line[0] == '(') continue;
+
+                        SynsetEntry entry = SynsetEntry.Parse(line);
+                        rtn.Add(entry);
+                    }
+                }
+
+                return rtn;
+            } catch(Exception ex)
+            {
+                throw new Exception($"Failed to Get All Entries. [File '{fileName}':{currentLineNumber} = '{currentLine}']", ex);
+            }
+        }
+
         public static async Task<SynsetEntry> GetEntryAsync(StorageFile file, int byteOffset)
         {
             using (IInputStream stream = await file.OpenSequentialReadAsync())
@@ -93,7 +127,10 @@ namespace SparcPoint.WordNet
             List<Word> wordList = new List<Word>();
             List<Pointer> pointerList = new List<Pointer>();
 
-            const string pattern = "(\\(.*\\)|\\[.*?\\]|frames: [\\d,]*|[\\w_\\.\\:\"]+,[^\\s]{1,2}|[\\w_\\.\\:\"]+,)";
+            // Ensure space before frames tag
+            line = Regex.Replace(line, "(?<!\\s)frames:", " frames:");
+
+            const string pattern = "(\\(.*\\)|\\[.*?\\]|frames:\\s*[\\d,\\s]*|[\\w_\\.\\:\"]+,[^\\s]{1,2}|[\\w_\\.\\:\"]+,)";
             foreach(Match match in Regex.Matches(line, pattern))
             {
                 string value = match.Value;
@@ -115,33 +152,22 @@ namespace SparcPoint.WordNet
         // word[#]",
         private static Word parseWord(string value)
         {
+            string origValue = value;
+
             value = value.Trim();
-            if (value.Last() != ',') throw new ArgumentException("Invalid Word String");
+            if (value.Last() != ',') throw new ArgumentException($"Invalid Word String [{value}].");
             value = value.Substring(0, value.Length - 1);
 
-            int quoteIndex = value.IndexOf('"');
-            if (quoteIndex > -1)
-            {
-                // Quote Found
-                string word = value.Substring(0, quoteIndex).Replace('_', ' ');
-                return new Word() { Lemma = word, LexId = 0, Pointers = null, Frames = null };
-            } else
-            {
-                // Quote Not Found
-                if (char.IsNumber(value[value.Length - 1]))
-                {
-                    if (char.IsNumber(value[value.Length - 2]))
-                    {
-                        return new Word() { Lemma = value.Substring(0, value.Length - 2).Replace('_', ' '), LexId = byte.Parse(value.Substring(value.Length - 2)), Pointers = null, Frames = null };
-                    } else
-                    {
-                        return new Word() { Lemma = value.Substring(0, value.Length - 1).Replace('_', ' '), LexId = byte.Parse(value.Substring(value.Length - 1)), Pointers = null, Frames = null };
-                    }
-                } else
-                {
-                    return new Word() { Lemma = value.Replace('_', ' '), LexId = 0, Pointers = null, Frames = null };
-                }
-            }
+            Word rtn = new Word();
+            rtn.LexId = getLexIdAndStrip(ref value);
+            rtn.Lemma = value.Replace('_', ' ').Replace("\"", string.Empty);
+
+            // Post-Checks
+            if (string.IsNullOrEmpty(rtn.Lemma)) throw new Exception($"Returned Lemma is empty [{origValue}].  This indicates an incorrect parsing algorithm.");
+            if (rtn.Lemma.Contains('"')) throw new Exception($"Returned Lemma contains a quote character [{origValue}].  This indicates an incorrect parsing algorithm.");
+            if (rtn.LexId < 0 || rtn.LexId > 15) throw new Exception($"Returned Lex Id must be between 1 and 15 [{origValue}]. This indicates an incorrect parsing algorithm.");
+
+            return rtn;
         }
 
         private static string parseGloss(string value)
@@ -151,91 +177,157 @@ namespace SparcPoint.WordNet
 
         private static IEnumerable<byte> parseFrames(string value)
         {
-            string frameList = value.Substring(7);
-            return frameList.Split(',').Select(x => byte.Parse(x)).ToArray();
+            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(value));
+            try
+            {
+                value = value.Replace("frames:", "");
+                return value.Split(',').Select(x => byte.Parse(x.Trim())).ToArray();
+            } catch (Exception ex)
+            {
+                throw new Exception($"Failed to parse Frames [{value}].", ex);
+            }
+            
         }
 
         // fasten1,@
         // noun.artifact:casket1,+
+        // adj.all:hostile1^opponent,+
         private static Pointer parsePointer(string value)
         {
-            Pointer rtn = new Pointer();
+            string origValue = value;
 
-            int colonIndex = value.IndexOf(':');
-            if (colonIndex > -1)
+            try
             {
-                Constants.LexicographerFiles fileValue = Constants.ParseFile(value.Substring(0, colonIndex));
-                rtn.LexFile = fileValue;
-                value = value.Substring(colonIndex + 1);
-            } else
-            {
-                // Submit the current file as the Lex File
-            }
+                Pointer rtn = new Pointer();
 
-            // Get Pointer
-            int commaIndex = value.IndexOf(',');
-            string pointerSymbolString = value.Substring(commaIndex + 1);
-            Constants.PointSymbol pointerSymbol = Constants.PointerSymbols[pointerSymbolString];
-            rtn.PointerSymbol = pointerSymbol;
-
-            value = value.Substring(0, commaIndex);
-            int quoteIndex = value.IndexOf('"');
-            if (quoteIndex > -1)
-            {
-                // Quote Found
-                string word = value.Substring(0, quoteIndex).Replace('_', ' ');
-                rtn.Lemma = word;
-            }
-            else
-            {
-                // Quote Not Found
-                if (char.IsNumber(value[value.Length - 1]))
+                int colonIndex = value.IndexOf(':');
+                if (colonIndex > -1)
                 {
-                    if (char.IsNumber(value[value.Length - 2]))
-                    {
-                        rtn.Lemma = value.Substring(0, value.Length - 2).Replace('_', ' ');
-                        rtn.LexId = byte.Parse(value.Substring(value.Length - 2));
-                    }
-                    else
-                    {
-                        rtn.Lemma = value.Substring(0, value.Length - 1).Replace('_', ' ');
-                        rtn.LexId = byte.Parse(value.Substring(value.Length - 1));
-                    }
+                    Constants.LexicographerFiles fileValue = Constants.ParseFile(value.Substring(0, colonIndex).Trim());
+                    rtn.LexFile = fileValue;
+                    value = value.Substring(colonIndex + 1).Trim();
                 }
                 else
                 {
-                    rtn.Lemma = value.Replace('_', ' ');
+                    // Submit the current file as the Lex File
                 }
+
+                // Get Pointer
+                int commaIndex = value.IndexOf(',');
+                string pointerSymbolString = value.Substring(commaIndex + 1);
+                Constants.PointSymbol pointerSymbol = Constants.PointerSymbols[pointerSymbolString];
+                rtn.PointerSymbol = pointerSymbol;
+
+                value = value.Substring(0, commaIndex);
+
+                int caretIndex = value.IndexOf('^');
+                if (caretIndex > -1)
+                {
+                    string satelliteLemma = value.Substring(caretIndex + 1);
+                    rtn.SatelliteLexId = getLexIdAndStrip(ref satelliteLemma);
+                    rtn.SatelliteLemma = satelliteLemma.Replace('_', ' ').Replace("\"", string.Empty);
+                    value = value.Substring(0, caretIndex);
+
+                    if (string.IsNullOrEmpty(rtn.SatelliteLemma)) throw new Exception($"Returned Lemma is empty [{origValue}].  This indicates an incorrect parsing algorithm.");
+                    if (rtn.SatelliteLemma.Contains('"')) throw new Exception($"Returned Satellite Lemma contains a quote character [{origValue}].  This indicates an incorrect parsing algorithm.");
+                    if (rtn.SatelliteLexId < 0 || rtn.LexId > 15) throw new Exception($"Returned Satellite Lex Id must be between 1 and 15 [{origValue}]. This indicates an incorrect parsing algorithm.");
+                }
+
+                rtn.LexId = getLexIdAndStrip(ref value);
+                rtn.Lemma = value.Replace('_', ' ').Replace("\"", string.Empty);
+
+                // Post-Checks
+                if (string.IsNullOrEmpty(rtn.Lemma)) throw new Exception($"Returned Lemma is empty [{origValue}].  This indicates an incorrect parsing algorithm.");
+                if (rtn.Lemma.Contains('"')) throw new Exception($"Returned Lemma contains a quote character [{origValue}].  This indicates an incorrect parsing algorithm.");
+                if (rtn.LexId < 0 || rtn.LexId > 15) throw new Exception($"Returned Lex Id must be between 1 and 15 [{origValue}]. This indicates an incorrect parsing algorithm.");
+
+                return rtn;
+            } catch (Exception ex)
+            {
+                throw new Exception($"Failed to parse pointer [{origValue}].", ex);
+            }
+        }
+
+        // Assumes only the word/lexId is provided
+        // casket1
+        // code5"
+        private static byte getLexIdAndStrip(ref string value)
+        {
+            if (value.Last() == '"')
+            {
+                value = value.Substring(0, value.Length - 1);
+                return 0;
             }
 
-            return rtn;
+            if (char.IsNumber(value[value.Length - 1]))
+            {
+                if (char.IsNumber(value[value.Length - 2]))
+                {
+                    string newValue = value.Substring(0, value.Length - 2);
+                    byte lexId = byte.Parse(value.Substring(value.Length - 2));
+                    value = newValue;
+                    return lexId;
+                } else
+                {
+                    string newValue = value.Substring(0, value.Length - 1);
+                    byte lexId = byte.Parse(value.Substring(value.Length - 1));
+                    value = newValue;
+                    return lexId;
+                }
+            } else
+            {
+                return 0;
+            }
         }
 
         // [ casket, noun.artifact:casket1,+ noun.artifact:casket,+ ]
         private static Word parseWordPointerSet(string value)
         {
-            value = value.Substring(2, value.Length - 4);
-            string[] values = value.Split(' ');
+            value = value.Substring(1, value.Length - 2).Trim();
 
-            // First is always the word
-            Word word = parseWord(values[0]);
-
-            List<Pointer> pointerList = new List<Pointer>();
-            for (int i = 1; i < values.Count(); i++)
+            // Before we split let's make sure the line is formatted properly
+            // Sometimes a colon may have spaces around it.  Let's fix this
+            value = Regex.Replace(value, "\\s*:\\s*", ":");
+            
+            try
             {
-                if (values[i] == "frames:")
+                // Pull out frames ahead of time
+                int framesIndex = value.IndexOf("frames:");
+                string framesString = null;
+                if (framesIndex > -1)
                 {
-                    IEnumerable<byte> frames = parseFrames(values[i] + ' ' + values[i + 1]);
-                    word.Frames = frames;
-                    break;
+                    framesString = value.Substring(framesIndex).Replace(" ", "");
+                    value = value.Substring(0, framesIndex);
                 }
 
-                Pointer newPointer = parsePointer(values[i]);
-                pointerList.Add(newPointer);
+                string[] values = value.Split(' ');
+
+                // First is always the word
+                Word word = parseWord(values[0]);
+
+                List<Pointer> pointerList = new List<Pointer>();
+                for (int i = 1; i < values.Count(); i++)
+                {
+                    if (string.IsNullOrWhiteSpace(values[i])) continue;
+
+                    Pointer newPointer = parsePointer(values[i]);
+                    pointerList.Add(newPointer);
+                }
+
+                if (framesString != null)
+                {
+                    // Remove Frames from value
+                    IEnumerable<byte> frames = parseFrames(framesString);
+                    word.Frames = frames;
+                }
+
+                word.Pointers = pointerList;
+                return word;
+            } catch (Exception ex)
+            {
+                throw new Exception($"Could not parse Word Pointer Set [{value}].", ex);
             }
 
-            word.Pointers = pointerList;
-            return word;
         }
 
         private static bool isWord(string match)
@@ -272,16 +364,6 @@ namespace SparcPoint.WordNet
             if (match.StartsWith("frames:")) return true;
             return false;
         }
-
-        /// <summary>
-        /// Parses Adjective Clusters with multiple lines
-        /// </summary>
-        /// <param name="lines"></param>
-        /// <returns></returns>
-        public static SynsetEntry Parse(string[] lines)
-        {
-            return new SynsetEntry();
-        }
     }
 
     public struct Word
@@ -297,8 +379,10 @@ namespace SparcPoint.WordNet
     public struct Pointer
     {
         public Constants.LexicographerFiles LexFile { get; set; }
-        public string Lemma { get; set; }
+        public string Lemma { get; set; }       // Head SynSet
+        public string SatelliteLemma { get; set; }
         public byte LexId { get; set; }
+        public byte SatelliteLexId { get; set; }
         public Constants.PointSymbol PointerSymbol { get; set; }
     }
 }

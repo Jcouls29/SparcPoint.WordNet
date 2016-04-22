@@ -339,10 +339,10 @@ namespace SparcPoint.WordNet.Test
             Assert.AreEqual("Sam cannot embarrass Sue", sentences[1]);
         }
 
+        // { dripstone, hoodmold, hoodmould, drip,@ (a protective drip that is made of stone) }
         [TestMethod]
-        public async Task SynSetEntry_Parse_dripstone()
+        public void SynSetEntry_Parse_dripstone()
         {
-            // { dripstone, hoodmold, hoodmould, drip,@ (a protective drip that is made of stone) }
             string line = "{ dripstone, hoodmold, hoodmould, drip,@ (a protective drip that is made of stone) }";
             SynsetEntry entry = SynsetEntry.Parse(line);
 
@@ -372,10 +372,10 @@ namespace SparcPoint.WordNet.Test
             Assert.AreEqual("a protective drip that is made of stone", entry.Gloss);
         }
 
+        // { [ driver, verb.contact:drive3,+ ] number_one_wood, wood2,@ (a golf club (a wood) with a near vertical face that is used for hitting long shots from the tee) }
         [TestMethod]
-        public async Task SynSetEntry_Parse_driver()
+        public void SynSetEntry_Parse_driver()
         {
-            // { [ driver, verb.contact:drive3,+ ] number_one_wood, wood2,@ (a golf club (a wood) with a near vertical face that is used for hitting long shots from the tee) }
             string line = "{ [ driver, verb.contact:drive3,+ ] number_one_wood, wood2,@ (a golf club (a wood) with a near vertical face that is used for hitting long shots from the tee) }";
             SynsetEntry entry = SynsetEntry.Parse(line);
 
@@ -406,9 +406,8 @@ namespace SparcPoint.WordNet.Test
 
         // { [ crape2, noun.artifact:crape,+ ] [ crepe, noun.artifact:crepe,+ noun.substance:crepe2,+ ] cover,@ frames: 8,11 (cover or drape with crape; "crape the mirror") }
         [TestMethod]
-        public async Task SynSetEntry_Parse_crape2()
+        public void SynSetEntry_Parse_crape2()
         {
-            // { [ crape2, noun.artifact:crape,+ ] [ crepe, noun.artifact:crepe,+ noun.substance:crepe2,+ ] cover,@ frames: 8,11 (cover or drape with crape; "crape the mirror") }
             string line = "{ [ crape2, noun.artifact:crape,+ ] [ crepe, noun.artifact:crepe,+ noun.substance:crepe2,+ ] cover,@ frames: 8,11 (cover or drape with crape; \"crape the mirror\") }";
             SynsetEntry entry = SynsetEntry.Parse(line);
 
@@ -448,6 +447,128 @@ namespace SparcPoint.WordNet.Test
             Assert.AreEqual(Constants.PointSymbol.HYPERNYM, pointers[0].PointerSymbol);
 
             Assert.AreEqual("cover or drape with crape; \"crape the mirror\"", entry.Gloss);
+        }
+
+        // { pit, 
+        // [ oppose, adj.all:hostile1^opponent,+ noun.person:opponent2,+ ] 
+        // [ match, noun.event:match,+ ] 
+        // [play_off, noun.event:playoff,+ ] 
+        // confront,@ frames: 9,10 (set into opposition or rivalry; "let them match their best athletes against ours"; "pit a chess player against the Russian champion"; "He plays his two children off against each other") }
+        [TestMethod]
+        public void SynSetEntry_Parse_pit()
+        {
+            string line = "{ pit, [ oppose, adj.all:hostile1^opponent,+ noun.person:opponent2,+ ] [ match, noun.event:match,+ ] [play_off, noun.event:playoff,+ ] confront,@ frames: 9,10 (set into opposition or rivalry; \"let them match their best athletes against ours\"; \"pit a chess player against the Russian champion\"; \"He plays his two children off against each other\") }";
+            SynsetEntry entry = SynsetEntry.Parse(line);
+
+            Word[] words = entry.Words.ToArray();
+            Assert.AreEqual(4, words.Count());
+
+            // Word 1: pit
+            Assert.AreEqual("pit", words[0].Lemma);
+
+            // Word 2: oppose
+            Assert.AreEqual("oppose", words[1].Lemma);
+            Pointer[] wordPointers = words[1].Pointers.ToArray();
+
+            Assert.AreEqual(2, wordPointers.Count());
+            AssertPointer(wordPointers[0], "hostile", 1, Constants.LexicographerFiles.ADJ_ALL,
+                "opponent", 0, Constants.PointerSymbols["+"]);
+            AssertPointer(wordPointers[1], "opponent", 2, Constants.LexicographerFiles.NOUN_PERSON,
+                null, 0, Constants.PointerSymbols["+"]);
+
+            // Word 3: match
+            Assert.AreEqual("match", words[2].Lemma);
+            wordPointers = words[2].Pointers.ToArray();
+            Assert.AreEqual(1, wordPointers.Count());
+            AssertPointer(wordPointers[0], "match", 0, Constants.LexicographerFiles.NOUN_EVENT, null, 0, Constants.PointerSymbols["+"]);
+
+            // Word 4: play off
+            Assert.AreEqual("play off", words[3].Lemma);
+            wordPointers = words[3].Pointers.ToArray();
+            Assert.AreEqual(1, wordPointers.Count());
+            AssertPointer(wordPointers[0], "playoff", 0, Constants.LexicographerFiles.NOUN_EVENT, null, 0, Constants.PointerSymbols["+"]);
+
+            Pointer[] pointers = entry.Pointers.ToArray();
+            Assert.AreEqual(1, pointers.Count());
+            Assert.AreEqual("confront", pointers[0].Lemma);
+            Assert.AreEqual(Constants.PointerSymbols["@"], pointers[0].PointerSymbol);
+        }
+
+        private void AssertPointer(Pointer pointer, string lemma, byte lexId, 
+            Constants.LexicographerFiles file, string satelliteLemma, byte satelliteLexId, 
+            Constants.PointSymbol ptSymbol)
+        {
+            Assert.AreEqual(lemma, pointer.Lemma);
+            Assert.AreEqual(lexId, pointer.LexId);
+            Assert.AreEqual(file, pointer.LexFile);
+            Assert.AreEqual(satelliteLemma, pointer.SatelliteLemma);
+            Assert.AreEqual(satelliteLexId, pointer.SatelliteLexId);
+            Assert.AreEqual(ptSymbol, pointer.PointerSymbol);
+        }
+
+        [TestMethod]
+        public async Task LexicographerFile_ParseWholeFiles_Nouns()
+        {
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_ACT, 6657);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_ANIMAL, 7510);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_ARTIFACT, 11605);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_ATTRIBUTE, 3037);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_BODY, 2018);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_COGNITION, 2973);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_COMMUNICATION, 5627);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_EVENT, 1076);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_FEELING, 430);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_FOOD, 2575);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_GROUP, 2624);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_LOCATION, 3222);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_MOTIVE, 42);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_OBJECT, 1546);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_PERSON, 11073);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_PHENOMENON, 642);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_PLANT, 8032);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_POSSESSION, 1062);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_PROCESS, 770);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_QUANTITY, 1276);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_RELATION, 437);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_SHAPE, 344);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_STATE, 3547);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_SUBSTANCE, 2986);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_TIME, 1030);
+            await ParseWholeFile(Constants.LexicographerFiles.NOUN_TOPS, 51);
+        }
+
+        [TestMethod]
+        public async Task LexicographerFile_ParseWholeFiles_Verbs()
+        {
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_BODY, 546);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_CHANGE, 2388);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_COGNITION, 698);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_COMMUNICATION, 1550);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_COMPETITION, 459);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_CONSUMPTION, 242);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_CONTACT, 2198);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_CREATION, 698);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_EMOTION, 343);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_MOTION, 1411);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_PERCEPTION, 461);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_POSSESSION, 848);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_SOCIAL, 1110);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_STATIVE, 756);
+            await ParseWholeFile(Constants.LexicographerFiles.VERB_WEATHER, 81);
+        }
+
+        [TestMethod]
+        public async Task LexicographerFile_ParseWholeFiles_Adverbs()
+        {
+            await ParseWholeFile(Constants.LexicographerFiles.ADV_ALL, 3625);
+        }
+
+        public async Task ParseWholeFile(Constants.LexicographerFiles file, int count)
+        {
+            StorageFile storFile = await FileRetriever.GetLexicographerFile(file);
+            IEnumerable<SynsetEntry> synsets = await LexicographerFile.GetAllEntries(storFile);
+
+            Assert.AreEqual(count, synsets.Count());
         }
     }
 }

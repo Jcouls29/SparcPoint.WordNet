@@ -1995,7 +1995,7 @@
 { [ compatibly, incompatibly,! adj.all:compatible1,\ ] (with compatibility) }
 { [ incompatibly, compatibly,! adj.all:incompatible1,\] (without compatibility) }
 { [ complacently, adj.all:contented^complacent,\] (in a self-satisfied manner; "he complacently lived out his life as a village school teacher") }
-{ [ uncomplainingly, complainingly,!adj.all:uncomplaining,\ ] (without complaining; "an equally gallant little wife and mother uncomplainingly keeping up the production of tasty and nourishing meals") }
+{ [ uncomplainingly, complainingly,! adj.all:uncomplaining,\ ] (without complaining; "an equally gallant little wife and mother uncomplainingly keeping up the production of tasty and nourishing meals") }
 { [ complainingly, uncomplainingly,! adj.all:complaining,\] (with complaints; "she did her work, but she did so complainingly") }
 { [ comprehensively, noncomprehensively,! adj.all:comprehensive,\] (in an all-inclusive manner) }
 { [ noncomprehensively, comprehensively,! adj.all:noncomprehensive,\] (in a limited way) }
@@ -2414,7 +2414,7 @@
 { [ gushingly, adj.all:demonstrative^gushing,\] (in a gushing manner; "a gushingly prolific writer") }
 { [ half-heartedly, adj.all:unenthusiastic^halfhearted,\] (without enthusiasm; in a half-hearted manner; "she tried half-heartedly") }
 { [half-hourly, adj.all:periodic^half-hourly,\] (every thirty minutes, every half hour)}
-{ [ half-yearly,adj.all:periodic^half-yearly,\] (every half year, every six months) }
+{ [ half-yearly, adj.all:periodic^half-yearly,\] (every half year, every six months) }
 { [ handsomely, adj.all:generous1^handsome,\] (in a generously handsome manner; "India has responded handsomely by providing 3,000 men") }
 { [ handsomely1, adj.all:beautiful^handsome,\] (in an attractively handsome manner; "the volume was handsomely bound") }
 { [ haphazard, adj.all:careless^haphazard,\ ] [ haphazardly1, adj.all:careless^haphazard,\ ] (without care; in a slapdash manner; "the Prime Minister was wearing a grey suit and a white shirt with a soft collar, but his neck had become thinner and the collar stood away from it as if it had been bought haphazard") }

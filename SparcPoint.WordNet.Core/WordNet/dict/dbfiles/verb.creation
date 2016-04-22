@@ -565,7 +565,7 @@
 { [ conduct4, noun.person:conductor,+ noun.act:conducting1,+ ] conduct,$ perform1,@ noun.act:music,;c frames: 8 (lead musicians in the performance of; "Bernstein conducted Mahler like no other conductor"; "she cannot conduct modern pieces")}
 { hold, throw8, have, make4, give2, verb.social:direct,@ frames: 8 (organize or be responsible for; "hold a reception"; "have, throw, or make a party"; "give a course") }
 { [ fiddle, noun.artifact:fiddle,+ noun.person:fiddler,+ ] play1,@ noun.act:music,;c frames: 2 (play the violin or fiddle) }
-{ [ trumpet, noun.artifact:trumpet,+ noun.person:trumpeter,+ ] verb.body:blow,*play1,@ noun.act:music,;c frames: 2 (play or blow on the trumpet) }
+{ [ trumpet, noun.artifact:trumpet,+ noun.person:trumpeter,+ ] verb.body:blow,* play1,@ noun.act:music,;c frames: 2 (play or blow on the trumpet) }
 { [ clarion, noun.artifact:clarion,+ ] play1,@ noun.act:music,;c noun.cognition:music1,;c frames: 2 (blow the clarion) }
 { double_tongue, triple-tongue, tongue,@ noun.cognition:music1,;c noun.act:music,;c frames: 2,8 (play fast notes on a wind instrument) }
 { [ tongue, noun.body:tongue,+ ] play,@ noun.cognition:music1,;c noun.act:music,;c frames: 2,8 (articulate by tonguing, as when playing wind instruments) }
