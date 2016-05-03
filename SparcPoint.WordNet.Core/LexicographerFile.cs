@@ -15,6 +15,8 @@ namespace SparcPoint.WordNet
     {
         public static async Task<IEnumerable<SynsetEntry>> GetAllEntries(StorageFile file)
         {
+            if (file.Name.Substring(0, 7) == "adj.all") throw new NotImplementedException();
+
             List<SynsetEntry> rtn = new List<SynsetEntry>();
             int currentLineNumber = 0;
             string currentLine = null;
@@ -49,6 +51,8 @@ namespace SparcPoint.WordNet
 
         public static async Task<SynsetEntry> GetEntryAsync(StorageFile file, int byteOffset)
         {
+            if (file.Name.Substring(0, 7) == "adj.all") throw new NotImplementedException();
+
             using (IInputStream stream = await file.OpenSequentialReadAsync())
             using (Stream classicStream = stream.AsStreamForRead())
             using (StreamReader reader = new StreamReader(classicStream))
@@ -86,7 +90,179 @@ namespace SparcPoint.WordNet
             StorageFile file = await FileRetriever.GetLexicographerFile(fileType);
             return await GetEntryAsync(file, byteOffset);
         }
+
+        #region Adjectives (Special Case)
+        public static async Task<IEnumerable<SynsetCluster>> GetAllEntriesAdjAsync(StorageFile file)
+        {
+            if (!(file.Name.Substring(0, 7) == "adj.all")) throw new NotImplementedException();
+
+            List<SynsetCluster> rtn = new List<SynsetCluster>();
+            int currentLineNumber = 0;
+            string currentLine = null;
+            string fileName = file.Name;
+
+            try
+            {
+                using (IInputStream stream = await file.OpenSequentialReadAsync())
+                using (Stream classicStream = stream.AsStreamForRead())
+                using (StreamReader reader = new StreamReader(classicStream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string line = await reader.ReadLineAsync();
+                        currentLineNumber++;
+                        currentLine = line;
+
+                        if (string.IsNullOrWhiteSpace(line)) continue;
+                        if (line[0] == '(') continue;
+
+                        if (line[0] == '{')
+                        {
+                            SynsetCluster entry = SynsetCluster.Parse(line);
+                            rtn.Add(entry);
+                        }
+
+                        if (line[0] == '[')
+                        {
+                            List<string> lines = new List<string>();
+                            lines.Add(line);
+
+                            while (!reader.EndOfStream)
+                            {
+                                line = await reader.ReadLineAsync();
+                                currentLineNumber++;
+                                currentLine = line;
+
+                                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                                lines.Add(line);
+
+                                if (line.Trim().Last() == ']') break;
+                            }
+                            SynsetCluster entry = SynsetCluster.Parse(lines.ToArray());
+                            rtn.Add(entry);
+                        }
+                    }
+                }
+
+                return rtn;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to Get All Entries. [File '{fileName}':{currentLineNumber} = '{currentLine}']", ex);
+            }
+        }
+
+        public static async Task<SynsetCluster> GetEntryAdjAsync(StorageFile file, int byteOffset)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
+
+    public struct SynsetClusterAdditional
+    {
+        public SynsetEntry HeadSynset { get; set; }
+        public IEnumerable<SynsetEntry> SatelliteSynsets { get; set; }
+    }
+
+    public struct SynsetCluster
+    {
+        public SynsetEntry HeadSynset { get; set; }
+        public IEnumerable<SynsetEntry> SatelliteSynsets { get; set; }
+        public IEnumerable<SynsetClusterAdditional> AdditionalClusters { get; set; }
+
+        public static SynsetCluster Parse(string[] lines)
+        {
+            SynsetCluster rtn = new SynsetCluster();
+
+            // Ready lines for parsing
+            lines[0] = lines[0].Substring(1);
+            lines[lines.Length - 1] = lines[lines.Length - 1].Substring(0, lines[lines.Length - 1].Length - 1);
+
+            // Start Head Synset Parsing
+            rtn.HeadSynset = SynsetEntry.Parse(lines[0]);
+
+            // Satellite Synsets next
+            int lineIndex = 1;
+            List<SynsetEntry> satellites = new List<SynsetEntry>();
+            for(int i = lineIndex; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+
+                if (lines[i][0] == '-')
+                {
+                    lineIndex = i + 1;
+                    break;
+                }
+
+                SynsetEntry satelliteSynset = SynsetEntry.Parse(lines[i]);
+                satellites.Add(satelliteSynset);
+            }
+            rtn.SatelliteSynsets = satellites;
+
+            // Additional Head Synsets/Satellite Synsets
+            List<SynsetClusterAdditional> additionalList = new List<SynsetClusterAdditional>();
+            int startIndex = lineIndex;
+            for (var i = lineIndex; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                if (lines[i][0] == '-')
+                {
+                    // More than 1 cluster.  Parse and continue
+                    string[] subLines = lines.SubArray(startIndex, i - startIndex);
+                    SynsetClusterAdditional addl = ParseAdditionalLines(subLines);
+                    additionalList.Add(addl);
+                    i++;
+                    startIndex = i;
+                }
+            }
+
+            string[] finalLines = lines.SubArray(startIndex, lines.Length - startIndex);
+            SynsetClusterAdditional finalAddl = ParseAdditionalLines(finalLines);
+            additionalList.Add(finalAddl);
+
+            rtn.AdditionalClusters = additionalList;
+            return rtn;
+        }
+
+        public static SynsetCluster Parse(string line)
+        {
+            SynsetCluster cluster = new SynsetCluster();
+            cluster.HeadSynset = SynsetEntry.Parse(line);
+            return cluster;
+        }
+
+        private static SynsetClusterAdditional ParseAdditionalLines(string[] lines)
+        {
+            SynsetClusterAdditional additionalCluster = new SynsetClusterAdditional();
+            additionalCluster.HeadSynset = SynsetEntry.Parse(lines[0]);
+            List<SynsetEntry> satellites = new List<SynsetEntry>();
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                SynsetEntry satelliteSynset = SynsetEntry.Parse(lines[i]);
+                satellites.Add(satelliteSynset);
+            }
+
+            additionalCluster.SatelliteSynsets = satellites;
+            return additionalCluster;
+        }
+    }
+
+    public static class Extensions
+    {
+        public static T[] SubArray<T>(this T[] data, int index, int length)
+        {
+            T[] results = new T[length];
+            Array.Copy(data, index, results, 0, length);
+            return results;
+        }
+    }
+
+
+
 
     // { words pointers (gloss) }
     // { words pointers frames (gloss) }
@@ -152,6 +328,7 @@ namespace SparcPoint.WordNet
         // word[#]",
         private static Word parseWord(string value)
         {
+            if (value.First() == '{') throw new ArgumentException($"Invalid Word String [{value}].");
             string origValue = value;
 
             value = value.Trim();
@@ -283,6 +460,7 @@ namespace SparcPoint.WordNet
         // [ casket, noun.artifact:casket1,+ noun.artifact:casket,+ ]
         private static Word parseWordPointerSet(string value)
         {
+            string origValue = value;
             value = value.Substring(1, value.Length - 2).Trim();
 
             // Before we split let's make sure the line is formatted properly
@@ -325,7 +503,7 @@ namespace SparcPoint.WordNet
                 return word;
             } catch (Exception ex)
             {
-                throw new Exception($"Could not parse Word Pointer Set [{value}].", ex);
+                throw new Exception($"Could not parse Word Pointer Set [{origValue}].", ex);
             }
 
         }
@@ -370,7 +548,7 @@ namespace SparcPoint.WordNet
     {
         public string Lemma { get; set; }
         // INFO: Adjective Only
-        // public char Marker { get; set; }        // p = predicate position, a = prenominal (attributive) position, ip = immediately postnominal position (abbreviated to i)
+        public char Marker { get; set; }        // p = predicate position, a = prenominal (attributive) position, ip = immediately postnominal position (abbreviated to i)
         public byte LexId { get; set; }
         public IEnumerable<Pointer> Pointers { get; set; }
         public IEnumerable<byte> Frames { get; set; }

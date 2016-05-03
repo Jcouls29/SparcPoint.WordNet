@@ -563,6 +563,43 @@ namespace SparcPoint.WordNet.Test
             await ParseWholeFile(Constants.LexicographerFiles.ADV_ALL, 3625);
         }
 
+        [TestMethod]
+        public async Task LexicographerFile_ParseWholeFiles_AdjOther()
+        {
+            await ParseWholeFile(Constants.LexicographerFiles.ADJ_PERT, 3665);
+            await ParseWholeFile(Constants.LexicographerFiles.ADJ_PPL, 60);
+        }
+
+        [TestMethod]
+        public async Task LexicographerFile_ParseWholeFiles_AdjAll()
+        {
+            StorageFile storFile = await FileRetriever.GetLexicographerFile(Constants.LexicographerFiles.ADJ_ALL);
+            IEnumerable<SynsetCluster> synsets = await LexicographerFile.GetAllEntriesAdjAsync(storFile);
+
+            Assert.AreEqual(1850, synsets.Count());
+        }
+
+        [TestMethod]
+        public async Task LexicographerFile_ABLE_AdjAll()
+        {
+            StorageFile storFile = await FileRetriever.GetLexicographerFile(Constants.LexicographerFiles.ADJ_ALL);
+            IEnumerable<SynsetCluster> synsets = await LexicographerFile.GetAllEntriesAdjAsync(storFile);
+
+            SynsetCluster first = synsets.First();
+            Assert.AreEqual("ABLE", first.HeadSynset.Words.First().Lemma);
+            Assert.AreEqual("UNABLE", first.AdditionalClusters.First().HeadSynset.Words.First().Lemma);
+        }
+
+        [TestMethod]
+        public async Task LexicographerFile_tribadistic_AdjAll()
+        {
+            StorageFile storFile = await FileRetriever.GetLexicographerFile(Constants.LexicographerFiles.ADJ_ALL);
+            IEnumerable<SynsetCluster> synsets = await LexicographerFile.GetAllEntriesAdjAsync(storFile);
+
+            SynsetCluster last = synsets.Last();
+            Assert.AreEqual("tribadistic", last.HeadSynset.Words.First().Lemma);
+        }
+
         public async Task ParseWholeFile(Constants.LexicographerFiles file, int count)
         {
             StorageFile storFile = await FileRetriever.GetLexicographerFile(file);

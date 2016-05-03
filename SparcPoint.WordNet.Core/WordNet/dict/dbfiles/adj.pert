@@ -1055,7 +1055,7 @@
 { [ inferential, noun.cognition:inference,+ noun.cognition:inference,\ ] [ illative, noun.cognition:inference,\ ] (relating to or having the nature of illation or inference; "the illative faculty of the mind") }
 { [ informational, noun.cognition:information,\ ] (relating to or having the nature of information) }
 { [ inguinal, noun.body:inguen,+ noun.body:inguen,\ ] (of or relating to or near the groin) }
-{ [ inhalant, verb.consumption:inhale,+ verb.body:inhale,+noun.act:inhalation,\ ] (inhaling or serving for inhalation; "an inhalant pore") }
+{ [ inhalant, verb.consumption:inhale,+ verb.body:inhale,+ noun.act:inhalation,\ ] (inhaling or serving for inhalation; "an inhalant pore") }
 { [ ink-jet, noun.artifact:ink-jet_printer,\ ] (of or relating to an ink-jet printer) }
 { [ inscriptive, noun.communication:inscription,\ ] (of or relating to an inscription) }
 { [ insecticidal, noun.substance:insecticide,\ ] (of or relating to insecticide) }
@@ -1112,7 +1112,7 @@
 { [ lobeliaceous, noun.plant:lobeliaceae,+ noun.plant:Lobeliaceae,\ ] (belonging to the family Lobeliaceae) }
 { [ local1, noun.location:locality,+ noun.location:locality,\ ] (of or belonging to or characteristic of a particular locality or neighborhood; "local customs"; "local schools"; "the local citizens"; "a local point of view"; "local outbreaks of flu"; "a local bus line") }
 { [ locker-room, noun.artifact:locker_room,\ ] (relating to or appropriate for a locker room; "locker-room humor") }
-{ [ logogrammatic, noun.communication:logogram,+ noun.communication:logogram,\ ] [ logographic,noun.communication:logograph,\ ] (of or relating to logograms or logographs) }
+{ [ logogrammatic, noun.communication:logogram,+ noun.communication:logogram,\ ] [ logographic, noun.communication:logograph,\ ] (of or relating to logograms or logographs) }
 { [ long-distance, noun.communication:long_distance,\ ] (of or relating to or being a long-distance telephone call; "a long-distance call"; "a long-distance transmission line"; "a long-distance operator") }
 { [ loopy, noun.shape:loop,+ noun.shape:loop,\ ] (consisting of or covered with or having loops) } 
 { [ lucifugous, noun.act:phototropism,\ ] [ lucifugal, noun.act:phototropism,\ ] (light-avoiding) }
@@ -3595,7 +3595,7 @@
 { [ striate, noun.shape:stria,\ ] (marked with stria or striations) }
 { [ sulcate, noun.body:sulcus,\ ] (having deep narrow furrows or grooves) }
 { [ hymenal, noun.body:hymen,+ noun.body:hymen,\ ] (of or relating to the hymen) }
-{ [ hymeneal,noun.act:wedding,\ noun.act:marriage,\ ] (of or relating to a wedding or marriage; "hymeneal rites") } 
+{ [ hymeneal, noun.act:wedding,\ noun.act:marriage,\ ] (of or relating to a wedding or marriage; "hymeneal rites") } 
 { [ servomechanical, noun.artifact:servomechanism,\ ] [ servo, noun.artifact:servo,+ noun.artifact:servomechanism,\ ] (of or involving servomechanisms) }
 { [ onomatopoeic, noun.communication:onomatopoeia,\ ] [ onomatopoetic, noun.communication:onomatopoeia,+ noun.communication:onomatopoeia,\ ] (of or relating to or characterized by onomatopoeia) }
 { [ commercial, noun.act:commerce,+ noun.act:commerce,\ ] (of or relating to commercialism; "a commercial attache"; "commercial paper"; "commercial law") }

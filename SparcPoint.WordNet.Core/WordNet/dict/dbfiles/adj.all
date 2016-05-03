@@ -1061,7 +1061,7 @@
 { [ UNARMORED1, ARMORED1,!] unarmoured1, noun.group:military,;c ((used of persons or things military) without protective armor) }]
 
 [{ [ ARMED2, UNARMED2,!] ((used of plants and animals) furnished with bristles and thorns ) }
-{ barbed,[ barbellate, noun.animal:barbel,+] [ briary, noun.plant:briar2,+ ] briery, bristled, [ bristly, noun.attribute:bristliness,+ noun.artifact:bristle,+ ] burred, [ burry, noun.plant:burr,+ ] [ prickly, noun.plant:prickle,+ noun.attribute:prickliness,+ ] setose, [ setaceous, noun.animal:seta,+ ] [ spiny, noun.attribute:spininess,+ ] [ thorny, noun.attribute:thorniness,+ noun.plant:thorn,+ ] (having or covered with protective barbs or quills or spines or thorns or setae etc.; "a horse with a short bristly mane"; "bristly shrubs"; "burred fruits"; "setaceous whiskers") }
+{ barbed, [ barbellate, noun.animal:barbel,+] [ briary, noun.plant:briar2,+ ] briery, bristled, [ bristly, noun.attribute:bristliness,+ noun.artifact:bristle,+ ] burred, [ burry, noun.plant:burr,+ ] [ prickly, noun.plant:prickle,+ noun.attribute:prickliness,+ ] setose, [ setaceous, noun.animal:seta,+ ] [ spiny, noun.attribute:spininess,+ ] [ thorny, noun.attribute:thorniness,+ noun.plant:thorn,+ ] (having or covered with protective barbs or quills or spines or thorns or setae etc.; "a horse with a short bristly mane"; "bristly shrubs"; "burred fruits"; "setaceous whiskers") }
 { bristlelike, (resembling a bristle) }
 { brushlike, (resembling a brush; "brushlike blue blooms") }
 { thistlelike, (resembling a thistle) }
@@ -1388,7 +1388,7 @@
 { [ conscious(p), noun.cognition:consciousness1,+ ] ((followed by `of') showing realization or recognition of something; "few voters seem conscious of the issue's importance"; "conscious of having succeeded"; "the careful tread of one conscious of his alcoholic load"- Thomas Hardy) }
 { [ sensible, noun.attribute:sensibleness1,+ verb.cognition:sense3,+ ] (aware intuitively or intellectually of something sensed; "made sensible of his mistakes"; "I am sensible that the mention of such a circumstance may appear trifling"- Henry Hallam; "sensible that a good deal more is still to be done"- Edmund Burke) }
 ----
-{ [ UNAWARE, noun.cognition:unawareness,+ AWARE,!] [ incognizant, noun.cognition:incognizance,+ ] ASLEEP,^ INSENSIBLE,^ UNCONSCIOUS,^ UNWITTING,^noun.cognition:awareness,= ((often followed by `of') not aware; "seemed unaware of the scrutiny"; "unaware of the danger they were in"; "unaware of the newborn hope"; "the most unaware person I've known") }
+{ [ UNAWARE, noun.cognition:unawareness,+ AWARE,!] [ incognizant, noun.cognition:incognizance,+ ] ASLEEP,^ INSENSIBLE,^ UNCONSCIOUS,^ UNWITTING,^ noun.cognition:awareness,= ((often followed by `of') not aware; "seemed unaware of the scrutiny"; "unaware of the danger they were in"; "unaware of the newborn hope"; "the most unaware person I've known") }
 { [ oblivious(p), noun.cognition:obliviousness,+ ] [ unmindful1(p), noun.attribute:unmindfulness,+ ] ((followed by `to' or `of') lacking conscious awareness of; "oblivious of the mounting pressures for political reform"; "oblivious to the risks she ran"; "not unmindful of the heavy responsibility") }
 { out_of_it, (unaware as a result of being uninformed) }
 { [ unconscious1(p), noun.cognition:unconsciousness,+ ] ((followed by `of') not knowing or perceiving; "happily unconscious of the new calamity at home"- Charles Dickens) }
@@ -2067,7 +2067,7 @@
 { [ iridescent, noun.attribute:iridescence,+ verb.stative:iridesce,+ ] nacreous, [ opalescent, noun.attribute:opalescence,+ verb.weather:opalesce,+ verb.stative:opalesce,+ ] opaline, pearlescent, (having a play of lustrous rainbow colors; "an iridescent oil slick"; "nacreous (or pearlescent) clouds looking like mother-of-pearl"; "a milky opalescent (or opaline) luster") }
 { [ lurid, noun.attribute:luridness2,+ ] (shining with an unnatural red glow as of fire seen through smoke; "a lurid sunset"; "lurid flames") }
 { noctilucent, (shining or glowing by night; "the noctilucent eyes of a cat") }
-{ [ satiny, noun.artifact:satin,+ ] [ sleek,noun.attribute:sleekness,+] silken, [ silky, noun.artifact:silk,+ noun.attribute:silkiness,+ ] silklike, [ slick,noun.attribute:slickness1,+ ] (having a smooth, gleaming surface reflecting light; "glossy auburn hair"; "satiny gardenia petals"; "sleek black fur"; "silken eyelashes"; "silky skin"; "a silklike fabric"; "slick seals and otters") }
+{ [ satiny, noun.artifact:satin,+ ] [ sleek, noun.attribute:sleekness,+] silken, [ silky, noun.artifact:silk,+ noun.attribute:silkiness,+ ] silklike, [ slick, noun.attribute:slickness1,+ ] (having a smooth, gleaming surface reflecting light; "glossy auburn hair"; "satiny gardenia petals"; "sleek black fur"; "silken eyelashes"; "silky skin"; "a silklike fabric"; "slick seals and otters") }
 { self-luminous, (having in itself the property of emitting light) }
 { [ shimmery, noun.event:shimmer,+ ] (glistening tremulously; "the shimmery surface of the lake"; "a dress of shimmery satin") }
 { silver, silvern, [ silvery, noun.substance:silver,+ ] (having the white lustrous sheen of silver; "a land of silver (or silvern) rivers where the salmon leap"; "repeated scrubbings have given the wood a silvery sheen") }
@@ -4161,7 +4161,7 @@
 { [ annihilative, verb.change:annihilate,+ ] annihilating, devastating1, withering, (wreaking or capable of wreaking complete destruction; "possessing annihilative power"; "a devastating hurricane"; "the guns opened a withering fire") }
 { blasting, ruinous, (causing injury or blight; especially affecting with sudden violence or plague or ruin; "the blasting effects of the intense cold on the budding fruit"; "the blasting force of the wind blowing sharp needles of sleet in our faces"; "a ruinous war") }
 { [ cataclysmal, noun.event:cataclysm,+ ] [ cataclysmic, noun.event:cataclysm,+ ] (severely destructive; "cataclysmic nuclear war"; "a cataclysmic earthquake") }
-{ [ caustic, noun.substance:caustic,+ ] [ corrosive, noun.substance:corrosive,+ verb.change:corrode1,+ verb.change:corrode,+ ] [ erosive1, verb.change:erode1,+ ] [ vitriolic,noun.substance:vitriol,+ ] [ mordant, noun.substance:mordant,+ ] (of a substance, especially a strong acid; capable of destroying or eating away by chemical action) }
+{ [ caustic, noun.substance:caustic,+ ] [ corrosive, noun.substance:corrosive,+ verb.change:corrode1,+ verb.change:corrode,+ ] [ erosive1, verb.change:erode1,+ ] [ vitriolic, noun.substance:vitriol,+ ] [ mordant, noun.substance:mordant,+ ] (of a substance, especially a strong acid; capable of destroying or eating away by chemical action) }
 { crushing, devastating, (physically or spiritually devastating; often used in combination; "a crushing blow"; "a crushing rejection"; "bone-crushing") }
 { damaging, negative, (designed or tending to discredit, especially without positive or helpful suggestions; "negative criticism") }
 { [ erosive2, verb.change:erode,+ ] (wearing away by friction; "the erosive effects of waves on the shoreline") }
@@ -4199,7 +4199,7 @@
 { [ leaky, noun.process:leak,+ ] (used informally; unable to retain urine) }]
 
 [{ [ CONTINUAL, SPORADIC,!] (recurring regularly or frequently in a prolonged and closely spaced series; "the continual banging of the shutters") }
-{ [ insistent, noun.state:insistence,+ noun.communication:insistence,+] [ repetitive, noun.communication:repetitiveness,+verb.creation:repeat,+ verb.change:repeat,+ ] (repetitive and persistent; "the bluejay's insistent cry") }
+{ [ insistent, noun.state:insistence,+ noun.communication:insistence,+] [ repetitive, noun.communication:repetitiveness,+ verb.creation:repeat,+ verb.change:repeat,+ ] (repetitive and persistent; "the bluejay's insistent cry") }
 { running(a), (continually repeated over a period of time; "a running joke among us") }
 { perennial, [ recurrent, noun.event:recurrence,+ verb.change:recur,+ ] repeated, (recurring again and again; "perennial efforts to stipulate the requirements") }
 { [ persistent, noun.attribute:persistency,+ noun.attribute:persistence2,+ verb.change:persist1,+ ] [ relentless, noun.attribute:relentlessness,+ ] unrelenting, (never-ceasing; "the relentless beat of the drums") }
@@ -4266,7 +4266,7 @@
 ----
 { [ UNCONTROVERSIAL, CONTROVERSIAL,!] noncontroversial, (not likely to arouse controversy) }
 { unchallengeable, (not open to challenge; "unchallengeable facts"; "a position of unchallengeable supremacy") }
-{ undisputed,unchallenged, unquestioned, (generally agreed upon; not subject to dispute; "the undisputed fact") }
+{ undisputed, unchallenged, unquestioned, (generally agreed upon; not subject to dispute; "the undisputed fact") }
 { agreed_upon(p), [ stipulatory, verb.communication:stipulate,+ ] (constituted or contracted by stipulation or agreement; "stipulatory obligations") }]
 
 [{ [ ARGUMENTATIVE, verb.communication:argue,+ UNARGUMENTATIVE,!] (given to or characterized by argument; "an argumentative discourse"; "argumentative to the point of being cantankerous"; "an intelligent but argumentative child") }
@@ -5034,7 +5034,7 @@
 { pastel, (lacking in body or vigor; "faded pastel charms of the naive music") }
 { tender, noun.Tops:plant,;c ((of plants) not hardy; easily killed by adverse growing condition; "tender green shoots") }
 ----
-{ [ RUGGED, noun.attribute:ruggedness,+ DELICATE,!] ROBUST,^STRONG,^TOUGH2,^ noun.attribute:strength,= (sturdy and strong in constitution or construction; enduring; "with a house full of boys you have to have rugged furniture") }
+{ [ RUGGED, noun.attribute:ruggedness,+ DELICATE,!] ROBUST,^ STRONG,^ TOUGH2,^ noun.attribute:strength,= (sturdy and strong in constitution or construction; enduring; "with a house full of boys you have to have rugged furniture") }
 { knockabout, (suitable for rough use; "a knockabout overcoat"; "a knockabout old car") }
 { [ sturdy, noun.attribute:sturdiness,+ ] tough, (substantially made or constructed; "sturdy steel shelves"; "sturdy canvas"; "a tough all-weather fabric"; "some plastics are as tough as metal") }]
 
@@ -5998,7 +5998,7 @@
 { unentitled, unqualified, (having no right or entitlement; "a distinction to which he was unentitled") }]
 
 [{ [ EMOTIONAL, noun.attribute:emotionality,+ UNEMOTIONAL,!] MOVED,^ MOVING1,^ PASSIONATE,^ WARM2,^ noun.attribute:emotionality,= (of more than usual emotion; "his behavior was highly emotional") }
-{ [ affectional, noun.feeling:affect,+ ] [affective,verb.emotion:affect,+ ] [ emotive, verb.emotion:emote,+ ] (characterized by emotion) }
+{ [ affectional, noun.feeling:affect,+ ] [affective, verb.emotion:affect,+ ] [ emotive, verb.emotion:emote,+ ] (characterized by emotion) }
 { bathetic, [ drippy, noun.attribute:drippiness1,+ ] hokey, maudlin, [mawkish, noun.feeling:mawkishness,+ noun.attribute:mawkishness,+ ] kitschy, [mushy, noun.attribute:mushiness1,+ ] schmaltzy, schmalzy, [sentimental, noun.feeling:sentiment,+ noun.attribute:sentimentality,+] sappy, soppy, soupy, slushy, (effusively or insincerely emotional; "a bathetic novel"; "maudlin expressions of sympathy"; "mushy effusiveness"; "a schmaltzy song"; "sentimental soap operas"; "slushy poetry") }
 { cathartic, releasing, noun.act:art,;c (emotionally purging (of e.g. art)) }
 { charged, supercharged, (fraught with great emotion; "an atmosphere charged with excitement"; "an emotionally charged speech") }
@@ -7174,7 +7174,7 @@
 ----
 { [ NONRIGID, RIGID,!] noun.cognition:aeronautics,;c (designating an airship having a shape maintained only by internal gas pressure and without a supporting structure) }]
 
-[{ [ ADAPTABLE, verb.change:adapt2,+ verb.change:adapt1,+noun.attribute:adaptability,+ UNADAPTABLE,!] (capable of adapting (of becoming or being made suitable) to a particular situation or use; "to succeed one must be adaptable"; "the frame was adaptable to cloth bolts of different widths") }
+[{ [ ADAPTABLE, verb.change:adapt2,+ verb.change:adapt1,+ noun.attribute:adaptability,+ UNADAPTABLE,!] (capable of adapting (of becoming or being made suitable) to a particular situation or use; "to succeed one must be adaptable"; "the frame was adaptable to cloth bolts of different widths") }
 { [ adjustable, verb.change:adjust3,+ ] (capable of being changed so as to match or fit; "adjustable seat belts") }
 { all-mains(a), noun.location:Britain,;r (used of a radio receiver that is adaptable to all voltages; "an all-mains set") }
 { [ convertible, verb.change:convert3,+ ] (designed to be changed from one use or form to another; "a convertible sofa"; "a convertible coupe") }
@@ -9179,7 +9179,7 @@
 ----
 { [ UNEDIFYING, EDIFYING,!] unenlightening4, (not edifying) }]
 
-[{ [ ENLIGHTENING, UNENLIGHTENING,!] [ informative2,verb.communication:inform,+ ] illuminating, (tending to increase knowledge or dissipate ignorance; "an enlightening glimpse of government in action"; "an illuminating lecture") }
+[{ [ ENLIGHTENING, UNENLIGHTENING,!] [ informative2, verb.communication:inform,+ ] illuminating, (tending to increase knowledge or dissipate ignorance; "an enlightening glimpse of government in action"; "an illuminating lecture") }
 ----
 { [ UNENLIGHTENING, ENLIGHTENING,!] unilluminating, (failing to inform or clarify; "an unenlightening comment") }]
 
@@ -9520,7 +9520,7 @@
 { hurtful, (causing hurt; "her hurtful unconsidered words") }
 { unkindly, unsympathetic, (lacking in sympathy and kindness; "unkindly ancts") }]
 
-[{ [ KNOWABLE, verb.cognition:know15,+ verb.cognition:know12,+verb.cognition:know4,+ verb.cognition:know2,+ verb.cognition:know1,+UNKNOWABLE,!] cognizable, cognisable, cognoscible, (capable of being known) }
+[{ [ KNOWABLE, verb.cognition:know15,+ verb.cognition:know12,+ verb.cognition:know4,+ verb.cognition:know2,+ verb.cognition:know1,+ UNKNOWABLE,!] cognizable, cognisable, cognoscible, (capable of being known) }
 ----
 { [UNKNOWABLE, KNOWABLE,!] (not knowable; "the unknowable mysteries of life") }
 { [ transcendent, noun.state:transcendency1,+ noun.state:transcendence1,+ verb.stative:transcend1,+ verb.stative:transcend,+ ] (beyond and outside the ordinary range of human experience or understanding; "the notion of any transcendent reality beyond thought") }] 
@@ -11665,7 +11665,7 @@
 { [ boisterous, noun.attribute:boisterousness,+ ] rambunctious, robustious, rumbustious, [ unruly, noun.attribute:unruliness,+ ] (noisy and lacking in restraint or discipline; "a boisterous crowd"; "a social gathering that became rambunctious and out of hand"; "a robustious group of teenagers"; "beneath the rumbustious surface of his paintings is sympathy for the vulnerability of ordinary human beings"; "an unruly class") }
 { mobbish, moblike, (characteristic of a mob; disorderly or lawless; "fanned mounting tension into mobbish terrorizing"; "moblike mentality") }
 { raucous, [ rowdy, noun.state:rowdiness,+ ] (disturbing the public peace; loud and rough; "a raucous party"; "rowdy teenagers") } 
-{ rough-and-tumble,bare-knuckle, bare-knuckled, (characterized by disorderly action and disregard for rules; "a rough-and-tumble fight"; "rough-and-tumble politics"; "undisguised bare-knuckle capitalism") }]
+{ rough-and-tumble, bare-knuckle, bare-knuckled, (characterized by disorderly action and disregard for rules; "a rough-and-tumble fight"; "rough-and-tumble politics"; "undisguised bare-knuckle capitalism") }]
 
 [{ [ ORDERED, DISORDERED,!] (having a systematic arrangement; especially having elements succeeding in order according to rule; "an ordered sequence") }
 { consecutive, sequent, [ sequential, noun.attribute:sequence,+ noun.act:sequence,+ ] [ serial, noun.communication:serial1,+ noun.communication:serial,+ noun.group:series,+ ] [ successive, noun.attribute:successiveness,+ verb.social:succeed1,+ ] (in regular succession without gaps; "serial concerts") }
@@ -12857,7 +12857,7 @@
 { dead, (unerringly accurate; "a dead shot"; "took dead aim") }
 { fine, (minutely precise especially in differences in meaning; "a fine distinction") }
 { finespun, [ hairsplitting, noun.cognition:hairsplitting,+ ] (developed in excessively fine detail; "finespun distinctions") }
-{ [ meticulous, noun.attribute:meticulosity,+noun.attribute:meticulousness,+ ] [ punctilious,noun.attribute:punctiliousness,+ ] (marked by precise accordance with details; "meticulous research"; "punctilious in his attention to rules of etiquette") }
+{ [ meticulous, noun.attribute:meticulosity,+ noun.attribute:meticulousness,+ ] [ punctilious, noun.attribute:punctiliousness,+ ] (marked by precise accordance with details; "meticulous research"; "punctilious in his attention to rules of etiquette") }
 { microscopic, (extremely precise with great attention to details; "examined it with microscopic care") }
 { nice2, skillful, (done with delicacy and skill; "a nice bit of craft"; "a job requiring nice measurements with a micrometer"; "a nice shot") }
 { on_the_nose, on_the_button, (being precise with regard to a prescribed or specified criterion; "his guess was on the nose"; "the prediction for snow was right on the button") }
@@ -13272,7 +13272,7 @@
 { [ REHABILITATIVE, verb.social:rehabilitate,+ PUNITIVE,!] (designed to accomplish rehabilitation; "from a penal to a rehabilitative philosophy"- J.B.Costello; "rehabilitative treatment") }]
 
 [{ [ PUREBRED, noun.animal:purebred,+ CROSSBRED,!] noun.attribute:lineage,= (bred for many generations from member of a recognized breed or strain) }
-{ full-blooded,full-blood, blooded, (of unmixed ancestry; "full-blooded Native American"; "blooded Jersies") }
+{ full-blooded, full-blood, blooded, (of unmixed ancestry; "full-blooded Native American"; "blooded Jersies") }
 { pedigree(a), pedigreed, [ pureblood, noun.animal:pureblood,+ ] pureblooded, thoroughbred, (having a list of ancestors as proof of being a purebred animal) }
 ----
 { [ CROSSBRED, PUREBRED,!] OUTBRED,^ noun.attribute:lineage,= (bred from parents of different varieties or species) }
@@ -14645,7 +14645,7 @@
 { [ precedential, noun.state:precedence,+ ] (having precedence (especially because of longer service); "precedential treatment for senior members of the firm") }
 { ranking(a), [ superior, noun.attribute:superiority1,+ ] higher-ranking, (having a higher rank; "superior officer") }
 ----
-{ [ JUNIOR, noun.person:junior1,+ noun.person:junior,+ SENIOR,!] YOUNG,^ SUBORDINATE2,^noun.state:seniority,= (younger; lower in rank; shorter in length of tenure or service) }
+{ [ JUNIOR, noun.person:junior1,+ noun.person:junior,+ SENIOR,!] YOUNG,^ SUBORDINATE2,^ noun.state:seniority,= (younger; lower in rank; shorter in length of tenure or service) }
 { junior-grade, lower-ranking, lowly, [ petty(a), noun.attribute:pettiness,+ ] secondary, [ subaltern, noun.person:subaltern,+ ] (inferior in rank or status; "the junior faculty"; "a lowly corporal"; "petty officialdom"; "a subordinate functionary") }
 { minor(ip), noun.location:Britain,;r (of the younger of two boys with the same family name; "Jones minor") }
 { younger, jr., (used of the younger of two persons of the same name especially used to distinguish a son from his father; "John Junior"; "John Smith, Jr.") }]
@@ -14678,7 +14678,7 @@
 { [ dead, noun.attribute:deadness2,+ ] deadened, (devoid of physical sensation; numb; "his gums were dead from the novocain"; "she felt no discomfort as the dentist drilled her deadened tooth"; "a public desensitized by continuous television coverage of atrocities") }
 { unreactive, (not tending to react to stimulation) }]
 
-[{ [ SENSITIVE2, noun.feeling:sensitiveness,+ noun.attribute:sensitiveness2,+ verb.cognition:sense3,+verb.cognition:sense2,+noun.feeling:sensitivity,+noun.attribute:sensitivity2,+INSENSITIVE2,!] RESPONSIVE,^ noun.feeling:sensitivity,= (being susceptible to the attitudes, feelings, or circumstances of others; "sensitive to the local community and its needs") }
+[{ [ SENSITIVE2, noun.feeling:sensitiveness,+ noun.attribute:sensitiveness2,+ verb.cognition:sense3,+ verb.cognition:sense2,+ noun.feeling:sensitivity,+ noun.attribute:sensitivity2,+ INSENSITIVE2,!] RESPONSIVE,^ noun.feeling:sensitivity,= (being susceptible to the attitudes, feelings, or circumstances of others; "sensitive to the local community and its needs") }
 { [ alive(p), noun.state:aliveness,+ ] ((followed by `to' or `of') aware of; "is alive to the moods of others") }
 { [ huffy, noun.feeling:huffiness,+ ] thin-skinned, feisty, [ touchy, noun.feeling:touchiness1,+ ] (quick to take offense) }
 { [ oversensitive, noun.feeling:oversensitiveness,+ ] (unduly sensitive or thin-skinned) }
@@ -15817,7 +15817,7 @@
 ----
 { [ LIQUID, noun.state:liquidness,+ noun.state:liquidity,+ noun.attribute:liquidity,+ GASEOUS,! SOLID1,!] noun.state:state_of_matter,= (existing as or having characteristics of a liquid; especially tending to flow; "water and milk and blood are liquid substances") }
 { [ fluid, noun.substance:fluid2,+ noun.substance:fluid,+ noun.attribute:fluidness,+ noun.attribute:fluidity,+ ] [runny, noun.event:run,+ noun.attribute:runniness,+ ] (characteristic of a fluid; capable of flowing and easily changing shape) }
-{ [ liquefiable, verb.weather:liquefy,+ verb.change:liquefy1,+ verb.change:liquefy,+ ] [ liquifiable,verb.change:liquify1,+ verb.change:liquify,+ ] (capable of being liquefied) }
+{ [ liquefiable, verb.weather:liquefy,+ verb.change:liquefy1,+ verb.change:liquefy,+ ] [ liquifiable, verb.change:liquify1,+ verb.change:liquify,+ ] (capable of being liquefied) }
 { liquefied, liquified, (reduced to a liquid state; "liquefied petroleum gas") }
 { semiliquid, (somewhat liquid) }
 { [ watery, noun.attribute:wateriness,+ noun.substance:water,+ ] (relating to or resembling or consisting of water; "a watery substance"; "a watery color") }
@@ -15837,7 +15837,7 @@
 { [ cavernous, noun.object:cavern,+ ] (being or suggesting a cavern; "vast cavernous chambers hollowed out of limestone") }
 { deep-set, sunken, recessed, (having a sunken area; "hunger gave their faces a sunken look") }
 { [ fistular, noun.body:fistula,+ ] fistulate, fistulous, noun.cognition:pathology,;c (hollow and tube-shaped like a reed) }
-{ [ tubular, noun.artifact:tube,+ ] [ cannular,noun.artifact:cannula,+ ] tubelike, tube-shaped, vasiform, (constituting a tube; having hollow tubes (as for the passage of fluids)) }]
+{ [ tubular, noun.artifact:tube,+ ] [ cannular, noun.artifact:cannula,+ ] tubelike, tube-shaped, vasiform, (constituting a tube; having hollow tubes (as for the passage of fluids)) }]
 
 [{ [ SOLUBLE1, noun.attribute:solubleness,+ noun.quantity:solubility,+ noun.attribute:solubility,+ INSOLUBLE1,!] ((of a substance) capable of being dissolved in some solvent (usually water)) }
 { alcohol-soluble, (soluble in alcohol) }
@@ -16035,7 +16035,7 @@
 { stabile, noun.cognition:biology,;c ((chemistry, physics, biology) resistant to change) }
 { stabilized, stabilised, (made stable or firm) }
 ----
-{ [ UNSTABLE, noun.attribute:unstableness,+ STABLE,!] IMPERMANENT,^INCONSTANT,^ UNSTEADY,^ (lacking stability or fixity or firmness; "unstable political conditions"; "the tower proved to be unstable in the high wind"; "an unstable world economy") }
+{ [ UNSTABLE, noun.attribute:unstableness,+ STABLE,!] IMPERMANENT,^ INCONSTANT,^ UNSTEADY,^ (lacking stability or fixity or firmness; "unstable political conditions"; "the tower proved to be unstable in the high wind"; "an unstable world economy") }
 { coseismic, coseismal, (being where earthquake waves arrive simultaneously) }
 { crank, cranky, tender, tippy, noun.artifact:boat,;c ((used of boats) inclined to heel over easily under sail) }
 { explosive, [ volatile, noun.attribute:volatility,+ ] (liable to lead to sudden change or violence; "an explosive issue"; "a volatile situation with troops and rioters eager for a confrontation") }
@@ -16120,7 +16120,7 @@
 { [ sure, noun.attribute:sureness2,+ ] (certain not to fail; "a sure hand on the throttle") }
 { surefooted, sure-footed, footsure, (not liable to stumble or fall; "on surefooted donkeys") }
 ----
-{ [ UNSTEADY, noun.attribute:unsteadiness1,+ STEADY,!] AGITATED,^ IRREGULAR,^ UNEVEN,^UNSTABLE,^ (subject to change or variation; "her unsteady walk"; "his hand was unsteady as he poured the wine"; "an unsteady voice") }
+{ [ UNSTEADY, noun.attribute:unsteadiness1,+ STEADY,!] AGITATED,^ IRREGULAR,^ UNEVEN,^ UNSTABLE,^ (subject to change or variation; "her unsteady walk"; "his hand was unsteady as he poured the wine"; "an unsteady voice") }
 { [ arrhythmic, noun.state:arrhythmia,+ ] jerking, [ jerky, noun.act:jerk,+ noun.attribute:jerkiness,+ ] (lacking a steady rhythm; "an arrhythmic heartbeat") }
 { [ convulsive, verb.contact:convulse1,+ verb.contact:convulse,+ ] spasmodic, [ spastic, noun.attribute:spasticity,+ ] (affected by involuntary jerky muscular contractions; resembling a spasm; "convulsive motions"; "his body made a spasmodic jerk"; "spastic movements") }
 { faltering, (unsteady in speech or action) }
@@ -16471,7 +16471,7 @@
 { [ accessory, noun.artifact:accessory,+ ] [ adjunct, noun.object:adjunct,+ ] ancillary, adjuvant, [ appurtenant, verb.stative:appertain,+ noun.artifact:appurtenance,+ ] [ auxiliary, noun.person:auxiliary,+ ] (furnishing added support; "an ancillary pump"; "an adjuvant discipline to forms of mysticism"; "The mind and emotions are auxiliary to each other") }
 { accessary, accessory1, (aiding and abetting in a crime; "he was charged with being accessory to the crime")}
 { [ certificatory, verb.social:certify2,+ ] (serving to certify or endorse authoritatively) }
-{ [ collateral, noun.possession:collateral,+ ] [ confirmative, verb.cognition:confirm,+ ] confirming, [confirmatory, verb.communication:confirm,+ verb.cognition:confirm,+ ] [ corroborative, verb.stative:corroborate,+verb.communication:corroborate,+ verb.cognition:corroborate,+ ] [corroboratory, verb.stative:corroborate,+ verb.communication:corroborate,+ verb.cognition:corroborate,+ ] substantiating, [ substantiative, verb.cognition:substantiate,+ ] validating, [ validatory, verb.communication:validate,+ verb.cognition:validate,+ ] [ verificatory, verb.cognition:verify1,+ ] verifying, (serving to support or corroborate; "collateral evidence") }
+{ [ collateral, noun.possession:collateral,+ ] [ confirmative, verb.cognition:confirm,+ ] confirming, [confirmatory, verb.communication:confirm,+ verb.cognition:confirm,+ ] [ corroborative, verb.stative:corroborate,+ verb.communication:corroborate,+ verb.cognition:corroborate,+ ] [corroboratory, verb.stative:corroborate,+ verb.communication:corroborate,+ verb.cognition:corroborate,+ ] substantiating, [ substantiative, verb.cognition:substantiate,+ ] validating, [ validatory, verb.communication:validate,+ verb.cognition:validate,+ ] [ verificatory, verb.cognition:verify1,+ ] verifying, (serving to support or corroborate; "collateral evidence") }
 { demonstrative_of(p), (serving to prove or demonstrate; "the oath of office is...demonstrative of the legislative opinion on this subject"- John Marshall) }
 { encouraging, supporting, (furnishing support and encouragement; "the anxious child needs supporting and accepting treatment from the teacher") }
 ----
